@@ -127,6 +127,7 @@
 					</view>
 				</view>
 			</view>
+		
 		</view>
 		
 	</view>
