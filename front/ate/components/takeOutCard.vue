@@ -1,4 +1,5 @@
 <template>
+	<!-- 首页外卖列表卡片 -->
   <view class="takeOutCard">
     <!-- 左边大图图片 -->
     <view class="cardImage">
@@ -97,7 +98,7 @@ import { ref } from 'vue'
 const props = defineProps({
   cardImage: {
     type: String,
-    default: "../../../static/indexCard3.jpg"
+    default: "../../static/indexCard3.jpg"
   },
   cardName: {
     type: String,
@@ -133,15 +134,15 @@ const props = defineProps({
   },
   reBuyImage: {
     type: String,
-    default: "../../../static/reBuy.png"
+    default: "../../static/reBuy.png"
   },
   hideImg: {
     type: String,
-    default: "../../../static/hideButton.png"
+    default: "../../static/hideButton.png"
   },
   hide1Img: {
     type: String,
-    default: "../../../static/hide1.png"
+    default: "../../static/hide1.png"
   },
   noThreshold: {
     type: String,
@@ -190,11 +191,11 @@ const props = defineProps({
 })
 
 const isHide = ref(true)
-const hideIm = ref("../../../static/hideButton1.png")
+const hideIm = ref("../../static/hideButton1.png")
 
 function showHide() {
   isHide.value = !isHide.value
-  hideIm.value = isHide.value ? "../../../static/hideButton1.png" : "../../../static/hideButton2.png"
+  hideIm.value = isHide.value ? "../../static/hideButton1.png" : "../../static/hideButton2.png"
 }
 </script>
 
