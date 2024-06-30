@@ -156,10 +156,6 @@ const props = defineProps({
     type: String,
     default: "35减3"
   },
-  firstVisitDiscount: {
-    type: String,
-    default: "首次光顾减1"
-  },
   service1: {
     type: String,
     default: "红包满28减8"

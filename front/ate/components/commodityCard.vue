@@ -17,7 +17,6 @@
 				<view class="commodityDiscount">
 					{{cDiscount}}折
 				</view>
-				
 				<!-- 价格以及加入购物车按钮 -->
 				<view class="saleCost">
 					<view class="discountCost">

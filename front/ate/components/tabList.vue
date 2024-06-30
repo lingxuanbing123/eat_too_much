@@ -1,5 +1,6 @@
+<!-- TabList.vue -->
 <template>
-  <view class="container">
+ 
     <view class="tabList">
       <view 
         v-for="(item, index) in tabLists" 
@@ -10,42 +11,40 @@
         {{ item.text }}
       </view>
     </view>
-  </view>
+
 </template>
 
 <script>
 export default {
+  name: 'TabList',
+  props: {
+    tabLists: {
+      type: Array,
+      required: true,
+      default: () => []
+    }
+  },
   data() {
     return {
-      tabLists: [
-        { text: '华科送至宿舍楼下' },
-        { text: '粉丝福利' },
-        { text: '招牌多肉' },
-        { text: '加食双拼满足加料' },
-        { text: '美味小吃' },
-        { text: '健康饮品' }
-      ],
       selectedTab: null // 用于跟踪当前选中的tab
     };
   },
   methods: {
     tabChose(index) {
       this.selectedTab = index; // 更新选中的tab索引
+      this.$emit('tab-chose', index); // 向父组件发出事件，通知选中的tab
     }
   }
 };
 </script>
 
 <style scoped>
-.container {
-  background-color: whitesmoke;  
-  min-height: 100vh;
-  width: 750rpx;
-}
+
   
 .tabList {
   width: 200rpx;
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  height: 800rpx;
   background-color: #F2F2F2;
   display: flex;
   flex-direction: column;
