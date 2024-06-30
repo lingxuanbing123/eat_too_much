@@ -2,13 +2,13 @@
 	<view class="container">
 		<!-- 外卖商家信息展示卡片 -->
 	<!-- <deliveryMerchantCardVue /> -->
-	<commodityCardVue />
+	<tabListVue />
 	</view>
 </template>
 
 <script>
-	import commodityCardVue from '@/components/commodityCard.vue'
-	// import deliveryMerchantCardVue from '@/components/deliveryMerchantCard.vue'
+	import tabListVue from '@/components/tabList.vue'
+	// import deliveryMercha ntCardVue from '@/components/deliveryMerchantCard.vue'
 	export default {
 		data() {
 			return {
@@ -20,7 +20,7 @@
 		},
 		components: {
 			// deliveryMerchantCardVue
-			commodityCardVue
+			tabListVue
 		}
 	}
 </script>
