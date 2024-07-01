@@ -166,7 +166,82 @@ export default {
 				  udiscount2: '活动优惠2',
 				  udiscount3: '活动优惠3',
 				  udiscount4: '活动优惠4'
-				}
+				},
+				{
+				  id: 4,
+				  cardImage: '../../static/indexCard3.jpg',
+				  cardName: '韩小愈猪脚饭(华科店)',
+				  rating: 5.0,
+				  monthlySales: 300,
+				  deliveryTime: 50,
+				  distance: 1.3,
+				  minOrder: 10,
+				  deliveryFee: 1,
+				  reBuyers: 373,
+				  reBuyImage: '../../static/reBuy.png',
+				  hideImg: '../../static/hideButton.png',
+				  hide1Img: '../../static/hide1.png',
+				  noThreshold: '9.5元无门槛',
+				  hdiscount1: '25减2',
+				  hdiscount2: '35减3',
+				  service1: '红包满28减8',
+				  service2: '9.5元无门槛',
+				  service3: '3.5元店铺红包',
+				  udiscount1: '活动优惠1',
+				  udiscount2: '活动优惠2',
+				  udiscount3: '活动优惠3',
+				  udiscount4: '活动优惠4'
+				},
+				{
+				  id: 5,
+				  cardImage: '../../static/indexCard3.jpg',
+				  cardName: '韩小愈猪脚饭(华科店)',
+				  rating: 5.0,
+				  monthlySales: 300,
+				  deliveryTime: 50,
+				  distance: 1.3,
+				  minOrder: 10,
+				  deliveryFee: 1,
+				  reBuyers: 373,
+				  reBuyImage: '../../static/reBuy.png',
+				  hideImg: '../../static/hideButton.png',
+				  hide1Img: '../../static/hide1.png',
+				  noThreshold: '9.5元无门槛',
+				  hdiscount1: '25减2',
+				  hdiscount2: '35减3',
+				  service1: '红包满28减8',
+				  service2: '9.5元无门槛',
+				  service3: '3.5元店铺红包',
+				  udiscount1: '活动优惠1',
+				  udiscount2: '活动优惠2',
+				  udiscount3: '活动优惠3',
+				  udiscount4: '活动优惠4'
+				},
+				{
+				  id: 6,
+				  cardImage: '../../static/indexCard3.jpg',
+				  cardName: '韩小愈猪脚饭(华科店)',
+				  rating: 5.0,
+				  monthlySales: 300,
+				  deliveryTime: 50,
+				  distance: 1.3,
+				  minOrder: 10,
+				  deliveryFee: 1,
+				  reBuyers: 373,
+				  reBuyImage: '../../static/reBuy.png',
+				  hideImg: '../../static/hideButton.png',
+				  hide1Img: '../../static/hide1.png',
+				  noThreshold: '9.5元无门槛',
+				  hdiscount1: '25减2',
+				  hdiscount2: '35减3',
+				  service1: '红包满28减8',
+				  service2: '9.5元无门槛',
+				  service3: '3.5元店铺红包',
+				  udiscount1: '活动优惠1',
+				  udiscount2: '活动优惠2',
+				  udiscount3: '活动优惠3',
+				  udiscount4: '活动优惠4'
+				},
 		    ]
 	  }
   }
@@ -243,7 +318,7 @@ export default {
 	color: white;
 	text-align: center;
 	align-items: center;
-	border-radius: 50rpx;
+	border-radius: 30rpx;
 	display: flex;
 	justify-content: center;
 }
@@ -280,11 +355,8 @@ export default {
 
 .prefer .indexList {
 	width: 100%;
+	padding-bottom: 100rpx;
 }
 
-.container .tabbar {
-	width: 100%;
-	height: 400rpx;
-	background-color: brown;
-}
+
 </style>

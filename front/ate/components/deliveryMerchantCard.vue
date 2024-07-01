@@ -97,7 +97,7 @@ const props = defineProps({
 	width: 700rpx;
 	height: 200rpx;
 	background-color: white;
-	margin:25rpx 0 0 25rpx;
+	margin:0rpx 0 0 25rpx;
 	border-radius: 20rpx;
 	display: flex;
 	flex-direction: column;
