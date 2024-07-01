@@ -2,7 +2,7 @@ package com.cbl.backend.service;
 
 import com.cbl.backend.dao.OrderInfoMapper;
 import com.cbl.backend.entity.OrderInfo;
-import jakarta.annotation.Resource;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
