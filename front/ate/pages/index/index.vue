@@ -23,134 +23,231 @@
 				</view>
 				<view class="searchButton">
 					搜索
+					
 				</view>
 			</view>
-
 			<!--美食外卖  -->
 			<view class="indexSquare">
 				<!-- 美食外卖 -->
-				<view class="squareItem">
-					
+				<view class="squareItem" v-for="item in squareItems" :key="item.id">
+					<!-- 美食外卖一系列图标 -->
+					<image class="squareItemPic" :src="item.imgSrc"></image>
+					<view class="squareItemText">
+						{{item.text}}
+					</view>
 				</view>
 			</view>
 			
 			<view class="indexList">
-				<view class="takeOutCard">
-					<!-- 左边大图图片 -->
-					<view class="cardImage">
-						<image class="cardImagePic" src="../../static/indexCard3.jpg"></image>
-					</view>
-					
-					<!-- 右边描述 -->
-					<view class="cardDescribe">
-						<view class="cardName">
-							韩小愈猪脚饭(华科店)
-						</view>
-						<view class="cardevaluate">
-							<view class="cardeValuateGrade">
-								5.0分  月售300+
-							</view>
-							50分钟 1.3km
-						</view>
-						
-						<view class="deliveryFee">
-							起送 10元 配送 1元
-						</view>
-						<!-- 火山 近30日 373人复购 -->
-						<view class="reBuy">
-							<view class="reBuyLeft">
-								<image class="reBuyImage" src="../../static/reBuy.png"></image>
-							</view>
-							近30日373人复购
-						</view>
-						
-						<!-- 下拉框按钮 -->
-						<view class="hideButton" @click="showHide">
-							<image class="hideButtonImg" :src="hideIm"></image>
-						</view>
-						
-						<!-- 未点击隐藏按钮之前显示的内容 -->
-						<view v-if="isHide" class="hide">
-							<view class="hide1">
-								<image class="hide1Img" src="../../static/hide1.png"></image>
-								9.5元无门槛
-							</view>
-							<view class="hide2">
-								25减2
-							</view>
-							<view class="hide3">
-								35减3
-							</view>
-						</view>
-						<!-- 点击隐藏按钮之后显示的内容 -->
-						<view v-else class="unHide">
-							<view class="activity">
-								活动
-								<view class="act1">
-									25减2
-								</view>
-								<view class="act2">
-									35减3
-								</view>
-								<view class="act3">
-									55减5
-								</view>
-								<view class="act4">
-									首次光顾减1
-								</view>
-							</view>
-							<view class="redPocket">
-								红包
-								<view class="rP1">
-									红包满28减8
-								</view>
-								<view class="rP2">
-									9.5元无门槛
-								</view>
-								<view class="rP3">
-									3.5元店铺红包
-								</view>
-							</view>
-							<view class="service">
-								服务
-								<view class="sv1">
-									先享后付
-								</view>
-								<view class="sv2">
-									食无优
-								</view>
-								<view class="sv3">
-									极速退
-								</view>
-							</view>
-						</view>
-					</view>
-				</view>
-			</view>
+			        <takeOutCard 
+			          v-for="card in takeOutCards" 
+			          :key="card.id"
+			          :card-image="card.cardImage"
+			          :card-name="card.cardName"
+			          :rating="card.rating"
+			          :monthly-sales="card.monthlySales"
+			          :delivery-time="card.deliveryTime"
+			          :distance="card.distance"
+			          :min-order="card.minOrder"
+			          :delivery-fee="card.deliveryFee"
+			          :re-buyers="card.reBuyers"
+			          :re-buy-image="card.reBuyImage"
+			          :hide-img="card.hideImg"
+			          :hide1-img="card.hide1Img"
+			          :no-threshold="card.noThreshold"
+			          :hdiscount1="card.hdiscount1"
+			          :hdiscount2="card.hdiscount2"
+			          :service1="card.service1"
+			          :service2="card.service2"
+			          :service3="card.service3"
+			          :udiscount1="card.udiscount1"
+			          :udiscount2="card.udiscount2"
+			          :udiscount3="card.udiscount3"
+			          :udiscount4="card.udiscount4"
+			        />
+			      </view>
+			
 		</view>
-		
 	</view>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				isHide: true,
-				hideIm:"../../static/hideButton1.png"
-				
-			}
-		},
-		onLoad() {
+import takeOutCard from '@/components/takeOutCard.vue'
 
-		},
-		methods: {
-			showHide() {
-				this.isHide = !this.isHide;
-				this.hideIm = this.isHide ? "../../static/hideButton1.png":"../../static/hideButton2.png"; 
-			}
-		}
-	}
+export default {
+  components: {
+    takeOutCard
+  },
+  data(){
+	  return {
+		squareItems:[
+		{id:1,imgSrc:'../../static/takeOut.png',text:'美食外卖'},	
+		{id:2,imgSrc:'../../static/supermarket.png',text:'超市便利'},
+		{id:3,imgSrc:'../../static/fruit.png',text:'新鲜水果'},
+		{id:4,imgSrc:'../../static/vegetables.png',text:'买菜'},
+		{id:5,imgSrc:'../../static/medicine.png',text:'买药'},
+		{id:6,imgSrc:'../../static/drink.png',text:'甜食饮品'},
+		{id:7,imgSrc:'../../static/errand.png',text:'跑腿'},
+		{id:8,imgSrc:'../../static/fruit2.png',text:'0元领水果'},
+		],
+		 takeOutCards: [
+		        {
+		          id: 1,
+		          cardImage: '../../static/indexCard3.jpg',
+		          cardName: '韩小愈猪脚饭(华科店)',
+		          rating: 5.0,
+		          monthlySales: 300,
+		          deliveryTime: 50,
+		          distance: 1.3,
+		          minOrder: 10,
+		          deliveryFee: 1,
+		          reBuyers: 373,
+		          reBuyImage: '../../static/reBuy.png',
+		          hideImg: '../../static/hideButton.png',
+		          hide1Img: '../../static/hide1.png',
+		          noThreshold: '9.5元无门槛',
+		          hdiscount1: '25减2',
+		          hdiscount2: '35减3',
+		          service1: '红包满28减8',
+		          service2: '9.5元无门槛',
+		          service3: '3.5元店铺红包',
+		          udiscount1: '活动优惠1',
+		          udiscount2: '活动优惠2',
+		          udiscount3: '活动优惠3',
+		          udiscount4: '活动优惠4'
+		        },
+		        // 其他卡片数据
+				{
+				  id: 2,
+				  cardImage: '../../static/indexCard1.jpg',
+				  cardName: '氧气层(华科东校区店)',
+				  rating: 4.4,
+				  monthlySales: 2000,
+				  deliveryTime: 45,
+				  distance: 1,
+				  minOrder: 20,
+				  deliveryFee: 1,
+				  reBuyers: 433,
+				  reBuyImage: '../../static/reBuy.png',
+				  hideImg: '../../static/hideButton.png',
+				  hide1Img: '../../static/hide1.png',
+				  noThreshold: '8元无门槛',
+				  hdiscount1: '30减4',
+				  hdiscount2: '50减9',
+				  service1: '红包满28减8',
+				  service2: '8元无门槛',
+				  service3: '7元店铺红包',
+				  udiscount1: '活动优惠1',
+				  udiscount2: '活动优惠',
+				  udiscount3: '含2元津贴',
+				  udiscount4: '免配送费'
+				},
+				{
+				  id: 3,
+				  cardImage: '../../static/indexCard2.jpg',
+				  cardName: '熊猫盖码饭(华科校内店)',
+				  rating: 4.9,
+				  monthlySales: 3000,
+				  deliveryTime: 45,
+				  distance: 1.9,
+				  minOrder: 0,
+				  deliveryFee: 1.9,
+				  reBuyers: 675,
+				  reBuyImage: '../../static/reBuy.png',
+				  hideImg: '../../static/hideButton.png',
+				  hide1Img: '../../static/hide1.png',
+				  noThreshold: '8元无门槛',
+				  hdiscount1: '10减6',
+				  hdiscount2: '28减10',
+				  service1: '红包满28减7',
+				  service2: '8元无门槛',
+				  service3: '5元店铺红包',
+				  udiscount1: '活动优惠1',
+				  udiscount2: '活动优惠2',
+				  udiscount3: '活动优惠3',
+				  udiscount4: '活动优惠4'
+				},
+				{
+				  id: 4,
+				  cardImage: '../../static/indexCard3.jpg',
+				  cardName: '韩小愈猪脚饭(华科店)',
+				  rating: 5.0,
+				  monthlySales: 300,
+				  deliveryTime: 50,
+				  distance: 1.3,
+				  minOrder: 10,
+				  deliveryFee: 1,
+				  reBuyers: 373,
+				  reBuyImage: '../../static/reBuy.png',
+				  hideImg: '../../static/hideButton.png',
+				  hide1Img: '../../static/hide1.png',
+				  noThreshold: '9.5元无门槛',
+				  hdiscount1: '25减2',
+				  hdiscount2: '35减3',
+				  service1: '红包满28减8',
+				  service2: '9.5元无门槛',
+				  service3: '3.5元店铺红包',
+				  udiscount1: '活动优惠1',
+				  udiscount2: '活动优惠2',
+				  udiscount3: '活动优惠3',
+				  udiscount4: '活动优惠4'
+				},
+				{
+				  id: 5,
+				  cardImage: '../../static/indexCard3.jpg',
+				  cardName: '韩小愈猪脚饭(华科店)',
+				  rating: 5.0,
+				  monthlySales: 300,
+				  deliveryTime: 50,
+				  distance: 1.3,
+				  minOrder: 10,
+				  deliveryFee: 1,
+				  reBuyers: 373,
+				  reBuyImage: '../../static/reBuy.png',
+				  hideImg: '../../static/hideButton.png',
+				  hide1Img: '../../static/hide1.png',
+				  noThreshold: '9.5元无门槛',
+				  hdiscount1: '25减2',
+				  hdiscount2: '35减3',
+				  service1: '红包满28减8',
+				  service2: '9.5元无门槛',
+				  service3: '3.5元店铺红包',
+				  udiscount1: '活动优惠1',
+				  udiscount2: '活动优惠2',
+				  udiscount3: '活动优惠3',
+				  udiscount4: '活动优惠4'
+				},
+				{
+				  id: 6,
+				  cardImage: '../../static/indexCard3.jpg',
+				  cardName: '韩小愈猪脚饭(华科店)',
+				  rating: 5.0,
+				  monthlySales: 300,
+				  deliveryTime: 50,
+				  distance: 1.3,
+				  minOrder: 10,
+				  deliveryFee: 1,
+				  reBuyers: 373,
+				  reBuyImage: '../../static/reBuy.png',
+				  hideImg: '../../static/hideButton.png',
+				  hide1Img: '../../static/hide1.png',
+				  noThreshold: '9.5元无门槛',
+				  hdiscount1: '25减2',
+				  hdiscount2: '35减3',
+				  service1: '红包满28减8',
+				  service2: '9.5元无门槛',
+				  service3: '3.5元店铺红包',
+				  udiscount1: '活动优惠1',
+				  udiscount2: '活动优惠2',
+				  udiscount3: '活动优惠3',
+				  udiscount4: '活动优惠4'
+				},
+		    ]
+	  }
+  }
+  
+  
+}
 </script>
 
 <style>
@@ -190,7 +287,7 @@
 	flex-direction: row;
 	margin-left: 250rpx;
 	padding: 5rpx;
-	font-size: 31rpx;
+	font-size: 30rpx;
 }
 
 .prefer .indexSearch {
@@ -221,184 +318,45 @@
 	color: white;
 	text-align: center;
 	align-items: center;
-	border-radius: 50rpx;
+	border-radius: 30rpx;
 	display: flex;
 	justify-content: center;
 }
 
 .prefer .indexSquare {
 	width: 100%;
-	height: 400rpx;
-	background-color: lightblue;
+	height: 300rpx;
+	/* background-color: whitesmoke; */
+	background-color: white;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.indexSquare .squareItem{
+	width: 140rpx;
+	height: 140rpx;
+
+	margin-left: 40rpx;
+} 
+
+.squareItem .squareItemPic{
+	width: 80rpx;
+	height: 80rpx;
+	margin: 10rpx 0 0 30rpx;
+}
+
+.squareItem .squareItemText{
+	font-size: 25rpx;
+	color: gray;
+	display: flex;
+	justify-content: center;
 }
 
 .prefer .indexList {
 	width: 100%;
+	padding-bottom: 100rpx;
 }
 
-.indexList .takeOutCard {
-	width: 700rpx;
-	height: auto;
-	display: flex;
-	flex-direction: row;
-	justify-content: start;
-	margin: 15rpx 0 0 15rpx;
-	border-radius: 20rpx;
-	padding: 15rpx;
-	background-color: white;
-}
 
-.takeOutCard .cardImage {
-	width: 180rpx;
-	margin-top: 20rpx;
-}
-
-.cardImage .cardImagePic {
-	width: 180rpx;
-	height: 180rpx;
-	border-radius: 10rpx;
-	display: flex;
-	align-items: center;
-}
-
-.takeOutCard .cardDescribe {
-	flex-grow: 1;
-	border-top-right-radius: 20rpx;
-	border-bottom-right-radius: 20rpx;
-	display: flex;
-	flex-direction: column;
-	padding: 5rpx;
-}
-
-.cardDescribe .cardName {
-	font-size: 30rpx;
-	margin: 10rpx 0 0 0;
-}
-
-.cardDescribe .cardevaluate {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	font-size: 23rpx;
-	color: gray;
-}
-
-.cardevaluate .cardeValuateGrade {
-	color: orange;
-}
-
-.cardDescribe .deliveryFee {
-	font-size: 20rpx;
-	color: gray;
-}
-
-.cardDescribe .reBuy {
-	width: 200rpx;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	background-color: #FFF3E5;
-	font-size: 20rpx;
-	color: #D7A476;
-	border-radius: 20rpx;
-	margin: 10rpx 0 0 0;
-}
-
-.reBuy .reBuyLeft {
-	background-color: #FFD8C1;
-	border-top-left-radius: 20rpx;
-	border-bottom-left-radius: 20rpx;
-}
-
-.reBuy .reBuyImage {
-	width: 25rpx;
-	height: 25rpx;
-}
-
-.cardDescribe .hideButton {
-}
-
-.hideButton .hideButtonImg {
-	width: 30rpx;
-	height: 30rpx;
-	margin: 0rpx 0 0 400rpx;
-}
-
-.cardDescribe .hide {
-	width: 300rpx;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	font-size: 20rpx;
-	margin: -30rpx 0 0 0;
-}
-
-.hide .hide1 {
-	padding: 3rpx;
-	border: 2rpx solid #D1944F;
-	color: #D1944F;
-	border-radius: 5rpx;
-}
-
-.hide1 .hide1Img {
-	width: 20rpx;
-	height: 20rpx;
-}
-
-.hide .hide2,.hide3 {
-	color: #C97A81;
-	border: 2rpx solid #C97A10;
-	border-radius: 5rpx;
-}
-
-.unHide .activity {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	font-size: 20rpx;
-	color: gray;
-}
-
-.activity .act1, .act2, .act3, .act4 {
-	color: red;
-	border: 2rpx solid #C97A81;
-	border-radius: 5rpx;
-}
-
-.unHide .redPocket {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	font-size: 20rpx;
-	color: gray;
-	margin-top: 10rpx;
-}
-
-.redPocket .rP1, .rP2, .rP3 {
-	color: red;
-	border: 2rpx solid #C97A81;
-	border-radius: 5rpx;
-}
-
-.unHide .service {
-	display: flex;
-	flex-direction: row;
-	justify-content: start;
-	font-size: 20rpx;
-	color: gray;
-	margin-top: 10rpx;
-}
-
-.unHide .sv1, .sv2, .sv3 {
-	color: black;
-	border: 2rpx solid black;
-	border-radius: 5rpx;
-	margin-left: 10rpx;
-}
-
-.container .tabbar {
-	width: 100%;
-	height: 400rpx;
-	background-color: brown;
-}
 </style>
