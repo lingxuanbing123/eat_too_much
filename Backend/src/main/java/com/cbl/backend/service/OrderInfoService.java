@@ -16,7 +16,7 @@ public class OrderInfoService {
         return orderInfoMapper.addOrderInfo(orderInfo);
     }
     //根据用户id获取订单信息
-    public List<OrderInfo> getOrderInfoByUserId(int userId)
+    public List<OrderInfo> getOrderInfoByUserId(String userId)
     {
         return orderInfoMapper.getOrderInfoByUserId(userId);
     }

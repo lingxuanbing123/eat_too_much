@@ -32,7 +32,7 @@ public class OrderInfoController {
     @ApiOperation(value = "根据用户id获取订单信息", notes = "根据用户id获取订单信息")
     @PostMapping("/getOrderInfoByUserId")
     public List<OrderInfo> getOrderInfoByUserId(@RequestBody String userId) {
-        return orderInfoService.getOrderInfoByUserId(Integer.parseInt(userId));
+        return orderInfoService.getOrderInfoByUserId(userId);
     }
 
 }

@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `business_info`
  */
 CREATE TABLE IF NOT EXISTS `good_info`
 (
-    `good_id`     int          NOT NULL,-- 商品id
+    `good_id`     int          NOT NULL AUTO_INCREMENT,-- 商品id
     `good_name`   varchar(255) NOT NULL,-- 商品名称
     `good_price`  double       NOT NULL,-- 商品价格
     `business_id` int          NOT NULL,-- 商家id
