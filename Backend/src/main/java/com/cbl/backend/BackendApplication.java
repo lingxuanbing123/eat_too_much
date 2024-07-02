@@ -9,6 +9,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @MapperScan(value = "com.cbl.backend.dao")
 @MapperScan(value = "com.cbl.backend.service")
 @EnableSwagger2
+@MapperScan("com.cbl.backend.mapper")
 public class BackendApplication {
 
     public static void main(String[] args) {
