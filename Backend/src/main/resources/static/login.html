@@ -11,9 +11,13 @@
 <input type="text" placeholder="输入用户名" id="username">
 <input type="password" placeholder="输入密码" id="pwd">
 <button id="btn" onclick="login()">登录</button>
+<button id="zhuche" onclick="register()">注册</button>
 
 <script>
 
+    function register(){
+        location.href = '/register.html'
+    }
     function login() {
         const username = document.getElementById("username").value;
         const pwd = document.getElementById("pwd").value;
@@ -26,13 +30,15 @@
             headers: {
                 "Content-Type": "application/json;charset=UTF-8"
             },
-            body: JSON.stringify({user_name:username,password: pwd})
+            body: JSON.stringify({username:username,password: pwd})
         }).then(res =>res.text()).then(res => {
+            ///console.log(res);
             if (res){
+                console.log(res)
                 let json = JSON.parse(res)
                 if(json.id){
                     alert("登录成功")
-                    location.href = '/'
+                    location.href = '/index.html'
                 }
             }else {
                 alert("用户名或密码错误")

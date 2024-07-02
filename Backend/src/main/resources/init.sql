@@ -33,11 +33,12 @@ CREATE TABLE IF NOT EXISTS `user`
 (
     `id`        int          NOT NULL AUTO_INCREMENT COMMENT '数据表中的用户序号',
     `user_id`   varchar(11)  NOT NULL COMMENT '用户唯一标识号，默认使用登录的手机号',
-    `user_name` varchar(15)  NOT NULL,-- 用户名
+    `username` varchar(15)  NOT NULL,-- 用户名
     `password`  varchar(255) NOT NULL,-- 密码
     PRIMARY KEY (`id`),
     UNIQUE KEY `user_id` (`user_id`)
     ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+
 
 /*
  * 订单信息表
@@ -54,7 +55,9 @@ CREATE TABLE IF NOT EXISTS `order_info`
     `good_name`   varchar(255) NOT NULL,-- 商品名称
     PRIMARY KEY (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_520_unicode_ci;
+
+INSERT INTO `user` VALUES (17,'85651652','user','user');
 
 /*
  * 购物车信息表

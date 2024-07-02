@@ -9,5 +9,16 @@
 </head>
 <body>
     我是首页
+
+<script>
+    fetch('./info').then(res=>res.json())
+    .then(res=>{
+        console.log(res);
+    })
+    .catch(e=>{console.error(e)
+    location.href = '/login.html'
+    })
+</script>
+
 </body>
 </html>
