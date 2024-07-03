@@ -1,25 +1,31 @@
 <template>
   <view class="container">
-    <!-- 弹出层--显示点单的卡片列表 -->
     <view v-if="showJumpCard" class="overlay" @click="toggleJumpCard"></view>
-    <view class="jumpCard" v-if="showJumpCard">
+    <view class="jumpCard" :class="{ show: showJumpCard }">
       <view class="jumpCardTitle">
         已选商品
         <view class="deleteList" @click="clearItems">
-          <image class="deleteListImg" src="../static/deleteList.png" ></image>
+          <image class="deleteListImg" src="../static/deleteList.png"></image>
           清空
         </view>
       </view>
-      <!-- 存放卡片列表 -->
       <view class="jumpCardList">
-        <!-- 这里模拟一些内容 -->
-        <view v-if="hasContent">商品内容</view>
+        <orderedListCard
+          v-for="(item, index) in items"
+          :key="index"
+          :imgSrc="item.cdPic"
+          :name="item.commodityName"
+          :price="item.dCost"
+          :initialNum="item.quantity"
+        />
+		<view class="jumpCardListBottom">
+			
+		</view>
       </view>
     </view>
-    <!-- choseFood页面底部底单汇总的卡片 -->
     <view class="choseFoodTotalCard">
       <view class="cardLeft" @click="toggleJumpCard">
-        <image class="cardLeftImg" :src="cardLeftImgSrc"></image>
+        <image class="cardLeftImg" src="../static/cFTAfter.png"></image>
         <view class="numShow" v-if="hasContent">
           {{ itemCount }}
         </view>
@@ -37,36 +43,28 @@
 </template>
 
 <script setup>
-import { ref, computed, defineProps, defineEmits } from 'vue';
+import { ref, computed } from 'vue';
+import { useStore } from 'vuex';
+import orderedListCard from '@/components/orderedListCard.vue';
 
-// 定义 props
-const props = defineProps({
-  items: {
-    type: Array,
-    default: () => []
-  }
-});
+const store = useStore();
 
-// 定义 emits
-const emit = defineEmits(['clear-items']);
+const items = computed(() => store.getters.cartItems);
+const itemCount = computed(() => store.getters.cartItemCount);
+const totalMoney = computed(() => '¥' + store.getters.cartTotalPrice.toFixed(2));
 
-// 本地状态
 const showJumpCard = ref(false);
 
-// 计算属性
-const hasContent = computed(() => props.items.length > 0);
-const cardLeftImgSrc = computed(() => hasContent.value ? '../../static/cFTAfter.png' : '../../static/cFTBefore.png');
-const itemCount = computed(() => props.items.length);
-const totalMoney = computed(() => '¥' + props.items.reduce((sum, item) => sum + item.price, 0).toFixed(2));
+const hasContent = computed(() => items.value.length > 0);
+
 const settleButtonClass = computed(() => hasContent.value ? 'rightBtn active' : 'rightBtn inactive');
 
-// 方法
 const toggleJumpCard = () => {
   showJumpCard.value = !showJumpCard.value;
 };
 
 const clearItems = () => {
-  emit('clear-items');
+  store.dispatch('clearCart');
   showJumpCard.value = false;
 };
 </script>
@@ -90,17 +88,19 @@ const clearItems = () => {
 }
 .jumpCard {
   width: 100%;
-  height: 20vh;
   background-color: white;
   border-top-left-radius: 20rpx;
   border-top-right-radius: 20rpx;
   position: fixed;
-  bottom: 6vh; /* 放在 choseFoodTotalCard 上面 */
+  bottom: 6vh;
   left: 0;
   z-index: 2;
-  transition: transform 0.2s;
+  transition: max-height 0.2s ease-out, transform 0.2s ease-out;
+  max-height: 0;
+  overflow: hidden;
 }
 .jumpCard.show {
+  max-height: 80vh; /* 这里设定一个最大高度 */
   transform: translateY(0);
 }
 .jumpCard .jumpCardTitle {
@@ -133,9 +133,16 @@ const clearItems = () => {
   align-items: center;
 }
 .jumpCard .jumpCardList {
-  min-height: 10vh;
   background-color: #FFFFFF;
+  max-height: 76vh;
+  overflow-y: auto;
 }
+
+.jumpCardList .jumpCardListBottom{
+	width: 100%;
+	height: 50rpx;
+}
+
 .choseFoodTotalCard {
   width: 100%;
   height: 9vh;

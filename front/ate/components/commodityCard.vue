@@ -1,77 +1,67 @@
 <template>
-	<!-- 点菜的列表里面的卡片 -->
-	<view class="commodityCard">
-		<view class="commodityCardImg">
-			<image class="commodityCardPic" :src="cdPic"></image>
-		</view>
-		<view class="commodityCardDec">
-			<view class="commodityName">
-				{{commodityName}}
-			</view>
-			<view class="commodityEvaluate">
-				{{commodityEvaluate}}
-			</view>
-			<view class="commoditySale">
-				月售{{csNum}}+ 好评率{{cSRate}}%
-			</view>
-			<view class="commodityDiscount">
-				{{cDiscount}}折
-			</view>
-			<!-- 价格以及加入购物车按钮 -->
-			<view class="saleCost">
-				<view class="discountCost">
-					{{dCost}}元
-				</view>
-				<view class="originalCost">
-					{{oCost}}元
-				</view>
-				<view class="addTrolly">
-					<image class="addTrollyPic" src="../static/addTrolly.png" mode=""></image>
-				</view>
-			</view>
-		</view>
-	</view>
+  <view class="commodityCard">
+    <view class="commodityCardImg">
+      <image class="commodityCardPic" :src="cdPic"></image>
+    </view>
+    <view class="commodityCardDec">
+      <view class="commodityName">
+        {{commodityName}}
+      </view>
+      <view class="commodityEvaluate">
+        {{commodityEvaluate}}
+      </view>
+      <view class="commoditySale">
+        月售{{csNum}}+ 好评率{{cSRate}}%
+      </view>
+      <view class="commodityDiscount">
+        {{cDiscount}}折
+      </view>
+      <view class="saleCost">
+        <view class="discountCost">
+          {{dCost}}元
+        </view>
+        <view class="originalCost">
+          {{oCost}}元
+        </view>
+        <view class="addTrolly" @click="addToCart">
+          <image class="addTrollyPic" src="../static/addTrolly.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
 </template>
 
-
 <script setup>
-import { defineProps } from 'vue'
+import { useStore } from 'vuex';
+import { defineProps } from 'vue';
 
 const props = defineProps({
-	cdPic: {
-		type: String,
-		default: "../../static/indexCard3.jpg"
-	},
-	commodityName: {
-		type: String,
-		default: "猪脚+配菜+米饭"
-	},
-	commodityEvaluate: {
-		type: String,
-		default: "洪山区炖肘子热销第一名"
-	},
-	csNum: {
-		type: Number,
-		default: 1000
-	},
-	cSRate: {
-		type: Number,
-		default: 95
-	},
-	cDiscount: {
-		type: Number,
-		default: 7.49
-	},
-	dCost: {
-		type: Number,
-		default: 23.9
-	},
-	oCost: {
-		type: Number,
-		default: 32.5
-	}
-})
+  cdPic: String,
+  commodityName: String,
+  commodityEvaluate: String,
+  csNum: Number,
+  cSRate: Number,
+  cDiscount: Number,
+  dCost: Number,
+  oCost: Number
+});
+
+const store = useStore();
+
+const addToCart = () => {
+  store.dispatch('addToCart', {
+    cdPic: props.cdPic,
+    commodityName: props.commodityName,
+    commodityEvaluate: props.commodityEvaluate,
+    csNum: props.csNum,
+    cSRate: props.cSRate,
+    cDiscount: props.cDiscount,
+    dCost: props.dCost,
+    oCost: props.oCost
+  });
+};
 </script>
+
 
 
 <style>
