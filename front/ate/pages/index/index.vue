@@ -1,4 +1,5 @@
 <template>
+	<!-- nreversion -->
 	<view class="container">
 		<view class="indexTitle">
 			<!-- 常用|推荐 -->
@@ -10,22 +11,16 @@
 					推荐
 				</view>
 			</view>
-			
 			<view class="location">
 				华中科技大学东校区
 			</view>
 		</view>
 		<view class="prefer">
 			<!-- 搜索框 -->
-			<view class="indexSearch">
-				<view class="searchText">
-					<input type="text" placeholder="韩小愈猪脚饭 | 华科校内店" />
-				</view>
 				<view class="searchButton">
 					搜索
 					
 				</view>
-			</view>
 			<!--美食外卖  -->
 			<view class="indexSquare">
 				<!-- 美食外卖 -->
@@ -65,8 +60,7 @@
 			          :udiscount3="card.udiscount3"
 			          :udiscount4="card.udiscount4"
 			        />
-			      </view>
-			
+			</view>
 		</view>
 	</view>
 </template>
