@@ -1,3 +1,5 @@
+<!-- myDetails -->
+<!-- 点击myDetail后显示密码，简介，收货地址页面  -->
 <template>
   <view class="container">
     <view class="title">
@@ -8,12 +10,12 @@
         {{ name }}
       </view>
       <view v-if="id !== 1" class="addhead" @click="toChangeDetails">
-        新增{{ name }}
+        修改{{ name }}
       </view>
     </view>
     <!-- 显示账号，地址，昵称的内容 -->
     <view class="mainPage">
-      
+      {{inputValue}}
     </view>
   </view>
 </template>
@@ -23,16 +25,21 @@ export default {
   data() {
     return {
       id: null,
-      name: ''
+      name: '',
+	  inputValue:''
     }
   },
   onLoad(options) {
     this.id = parseInt(options.id);
     this.name = options.name;
+	 this.inputValue = uni.getStorageSync('inputValue');
   },
   methods: {
     backMyDetails() {
-      uni.navigateBack();
+      // uni.navigateBack();
+	  uni.switchTab({
+	  	url:'/pages/MyDetails/MyDetails'
+	  })
     },
     toChangeDetails() {
       uni.navigateTo({
@@ -78,5 +85,15 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.container .mainPage{
+	width: 700rpx;
+	height: 100rpx;
+	background-color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 100rpx 0 0 25rpx;
 }
 </style>

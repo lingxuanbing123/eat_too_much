@@ -8,18 +8,17 @@
       <view class="head">
         修改{{ name }}
       </view>
-      <view class="right">
-      </view>
+      <view class="right"></view>
     </view>
-    
+
     <view class="input">
-      <input class="inputItem" type="text" :placeholder="notice"/>
+      <input class="inputItem" type="text" :placeholder="notice" v-model="inputValue"/>
     </view>
     <view class="inputNotice">
       {{ name }} 只能修改一次，5-24个字
     </view>
     <!-- 确认按钮 -->
-    <view class="inputBtn" @click="confirmChange">
+    <view class="inputBtn" :class="{ active: isInputValid }" @click="confirmChange">
       确认修改
     </view>
   </view>
@@ -30,7 +29,13 @@ export default {
   data() {
     return {
       name: '',
-      notice: ''
+      notice: '',
+      inputValue: ''
+    }
+  },
+  computed: {
+    isInputValid() {
+      return this.inputValue.length >= 5 && this.inputValue.length <= 24;
     }
   },
   onLoad(options) {
@@ -42,7 +47,15 @@ export default {
       uni.navigateBack();
     },
     confirmChange() {
-      // 实现确认修改的逻辑，可以在这里处理账号修改等操作
+      if (this.isInputValid) {
+        // Store the input value in localStorage or Vuex
+        uni.setStorageSync('inputValue', this.inputValue);
+
+        // Navigate to myDetailsTo page
+        uni.navigateTo({
+          url: `/pages/myDetailsTo/myDetailsTo`
+        });
+      }
     }
   }
 }
@@ -113,5 +126,9 @@ export default {
   align-items: center;
   margin-left: 100rpx;
   border-radius: 10rpx;
+}
+
+.inputBtn.active {
+  background-color: #01B5FA;
 }
 </style>
