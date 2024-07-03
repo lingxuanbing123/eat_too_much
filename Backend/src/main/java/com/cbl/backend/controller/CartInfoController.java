@@ -1,46 +1,57 @@
 package com.cbl.backend.controller;
 
 import com.cbl.backend.entity.CartInfo;
-import com.cbl.backend.service.CartInfoService;
-import com.cbl.backend.utils.NewResult;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.cbl.backend.mapper.CartInfoMapper;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.List;
 
-@Api(tags="购物车信息接口", value = "CartInfoController")
+import static java.sql.DriverManager.println;
+
 @RestController
-@RequestMapping("/api/cartInfo")
 public class CartInfoController {
-    @Autowired
-    private CartInfoService cartInfoService;
-    @ApiOperation(value = "添加购物车信息", notes = "添加购物车信息")
-    @PostMapping("/addCartInfo")
-    public NewResult addCartInfo(CartInfo cartInfo) {
-        int i = cartInfoService.addCartInfo(cartInfo);
-        if (i == 1) {
-            return NewResult.success();
-        } else {
-            return NewResult.error("添加失败");
+    @Resource
+    CartInfoMapper cartInfoMapper;
+
+    @GetMapping("/cartInfo/select")
+    public List<CartInfo> GetCartInfoByUserId(@RequestBody String userId){
+        if (cartInfoMapper.getCartInfoByUserId(userId) != null){
+            System.out.println(cartInfoMapper.getCartInfoByUserId(userId));
+            return cartInfoMapper.getCartInfoByUserId(userId);
+        }
+        else {
+            println("该用户无购物车信息");
+            return null;
         }
     }
-    @ApiOperation(value = "根据用户id获取购物车信息", notes = "根据用户id获取购物车信息")
-    @PostMapping("/getCartInfoByUserId")
-    public List<CartInfo> getCartInfoByUserId(String userId) {
-        return cartInfoService.getCartInfoByUserId(userId);
-    }
-    @ApiOperation(value = "根据用户id和商品id删除购物车信息", notes = "根据用户id和商品id删除购物车信息")
-    @PostMapping("/deleteCartInfoByUserAndGoodId")
-    public NewResult deleteCartInfoByUserAndGoodId(String userId, int goodId) {
-        int i = cartInfoService.deleteCartInfoByUserAndGoodId(userId, goodId);
-        if (i == 1) {
-            return NewResult.success();
-        } else {
-            return NewResult.error("删除失败");
+
+    @PostMapping("/cartInfo/add")
+    public ResponseEntity<Void> addCartInfo(@RequestBody CartInfo cartInfo){
+        try {
+            cartInfoMapper.addCartInfo(cartInfo);
+            return ResponseEntity.ok().build();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
         }
     }
+
+    @PostMapping("/cartInfo/delete")
+    public ResponseEntity<Void> deleteCartInfoByUserAndGoodId(@RequestBody String userId, @RequestBody int goodId ){
+        try{
+            cartInfoMapper.deleteCartInfoByUserAndGoodId(userId, goodId);
+            return ResponseEntity.ok().build();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 }
