@@ -1,5 +1,5 @@
 <template>
-	<view class="container">
+
 		<!-- 外卖商家信息展示卡片 -->
 		
 			<view class="deliveryMerchantCard">
@@ -54,7 +54,7 @@
 					</view>
 				</view>
 			</view>
-	</view>
+	
 	
 	
 	
