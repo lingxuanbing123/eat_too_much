@@ -1,6 +1,8 @@
 package com.cbl.backend.controller;
 
+import com.cbl.backend.entity.Business;
 import com.cbl.backend.entity.CartInfo;
+import com.cbl.backend.entity.Good;
 import com.cbl.backend.entity.User;
 import com.cbl.backend.mapper.CartInfoMapper;
 import org.springframework.http.HttpStatus;
@@ -33,15 +35,26 @@ public class CartInfoController {
     }
 
     @PostMapping("/cartInfo/add")
-    public ResponseEntity<Void> add(@RequestBody CartInfo cartInfo){
+    public ResponseEntity<Void> add(@RequestBody CartInfo cartInfo, HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        if(user!= null){
+            cartInfo.setUserid(user.getUserid());
+        }
+        Business business = (Business) request.getSession().getAttribute("businessId");
+        if(business != null){
+            cartInfo.setBusinessId(business.getBusinessId());
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
         try {
             cartInfoMapper.add(cartInfo);
-            return ResponseEntity.ok().build();
         }
         catch (Exception e){
-            e.printStackTrace();
-            return ResponseEntity.badRequest().build();
+            System.err.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/cartInfo/{id}")
