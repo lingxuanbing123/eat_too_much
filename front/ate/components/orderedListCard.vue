@@ -29,8 +29,9 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { useStore } from 'vuex';
 import { defineProps, defineEmits } from 'vue';
+import { ref, watch } from 'vue';
 
 const props = defineProps({
   initialNum: {
@@ -41,11 +42,11 @@ const props = defineProps({
     type: String,
     default: '../../static/indexCard3.jpg'
   },
-  leftPic:{
+  leftPic: {
     type: String,
     default: '../../static/delete.png'
   },
-  rightPic:{
+  rightPic: {
     type: String,
     default: '../../static/addTrolly.png'
   },
@@ -63,7 +64,7 @@ const props = defineProps({
   }
 });
 
-const emits = defineEmits(['update:initialNum']);
+const store = useStore();
 
 const oCLNum = ref(props.initialNum);
 
@@ -72,15 +73,16 @@ watch(() => props.initialNum, (newValue) => {
 });
 
 const increment = () => {
-  oCLNum.value += 1;
-  emits('update:initialNum', oCLNum.value);
+  store.dispatch('addToCart', {
+    commodityName: props.name,
+    dCost: parseFloat(props.price)
+  });
 };
 
 const decrement = () => {
-  if (oCLNum.value > 0) {
-    oCLNum.value -= 1;
-    emits('update:initialNum', oCLNum.value);
-  }
+  store.dispatch('removeFromCart', {
+    commodityName: props.name
+  });
 };
 </script>
 

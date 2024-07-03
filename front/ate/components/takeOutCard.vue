@@ -1,6 +1,8 @@
+<!-- takeOutCard.vue -->
+<!-- takeOutCard.vue -->
 <template>
-	<!-- 首页外卖列表卡片 -->
-  <view class="takeOutCard">
+  <!-- 首页外卖列表卡片 -->
+  <view class="takeOutCard" @click="handleClick">
     <!-- 左边大图图片 -->
     <view class="cardImage">
       <image class="cardImagePic" :src="cardImage"></image>
@@ -13,7 +15,7 @@
       </view>
       <view class="cardevaluate">
         <view class="cardeValuateGrade">
-        {{ rating }}分 月售{{ monthlySales }}+
+          {{ rating }}分 月售{{ monthlySales }}+
         </view>
         {{ deliveryTime }}分钟 {{ distance }}km
       </view>
@@ -29,7 +31,7 @@
       </view>
       
       <!-- 下拉框按钮 -->
-      <view class="hideButton" @click="showHide">
+      <view class="hideButton" @click.stop="showHide">
         <image class="hideButtonImg" :src="hideIm"></image>
       </view>
       
@@ -93,7 +95,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
 const props = defineProps({
   cardImage: {
@@ -184,14 +186,21 @@ const props = defineProps({
     type: String,
     default: "活动优惠4"
   }
-})
+});
 
-const isHide = ref(true)
-const hideIm = ref("../../static/hideButton1.png")
+const isHide = ref(true);
+const hideIm = ref("../../static/hideButton1.png");
 
-function showHide() {
-  isHide.value = !isHide.value
-  hideIm.value = isHide.value ? "../../static/hideButton1.png" : "../../static/hideButton2.png"
+function showHide(event) {
+  event.stopPropagation(); // Prevent the click event from propagating to the parent
+  isHide.value = !isHide.value;
+  hideIm.value = isHide.value ? "../../static/hideButton1.png" : "../../static/hideButton2.png";
+}
+
+function handleClick() {
+  uni.navigateTo({
+    url: '/pages/choseFood/choseFood' // 目标页面路径
+  });
 }
 </script>
 

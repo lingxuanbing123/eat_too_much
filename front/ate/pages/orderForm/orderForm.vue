@@ -1,87 +1,27 @@
 <template>
-	<view class="container">
-		<view class="formHead">
-			<view class="fH1">全部</view>
-			<view class="fH2">进行中</view>
-			<view class="fH3">待评价</view>
-			<view class="fH4">退款</view>
-		</view>
-
-		<view class="formList">
-			<orderFormCardVue 
-				v-for="item in formCardList" 
-				:key="item.id"
-				:titleOne="item.titleOne"
-				:status="item.status"
-				:titleTwo="item.titleTwo"
-				:price="item.price"
-				:orderNum="item.orderNum"
-				:orderTime="item.orderTime"
-				:orderDishesList="item.orderDishesList"
-			/>
-		</view>
-	</view>
+  <view class="orderForm">
+    <view class="orderFormTitle">订单详情</view>
+    <view class="orderFormContent">
+      <orderFormCard
+        v-for="(item, index) in orderItems"
+        :key="index"
+        :imgSrc="item.imgSrc" 
+        :name="item.name"
+        :price="item.price"
+        :quantity="item.quantity"
+      />
+    </view>
+  </view>
 </template>
 
-<script>
-import orderFormCardVue from '@/components/orderFormCard.vue'
+<script setup>
+import { useStore } from 'vuex';
+import orderFormCard from '@/components/orderFormCard.vue';
 
-export default {
-	data() {
-		return {
-			formCardList: [
-				{
-					id: 1,
-					titleOne: "韩小愈猪脚饭(华科店)",
-					status: "已送达",
-					titleTwo: "接受预订中",
-					price: 26.4,
-					orderNum: 1,
-					orderTime: "2024-06-28 10:49:25",
-					orderDishesList: [
-						{ id: 1, img: '../../static/indexCard3.jpg'},
-						{ id: 2, img: '../../static/indexCard2.jpg'},
-						{ id: 3, img: '../../static/indexCard1.jpg'}
-					]
-				},
-				{
-					id: 2,
-					titleOne: "韩小愈猪脚饭(华科店)",
-					status: "已送达",
-					titleTwo: "接受预订中",
-					price: 26.4,
-					orderNum: 1,
-					orderTime: "2024-06-28 10:49:25",
-					orderDishesList: [
-						{ id: 1, img: '../../static/indexCard3.jpg'},
-						{ id: 2, img: '../../static/indexCard2.jpg'},
-						{ id: 3, img: '../../static/indexCard1.jpg'}
-					]
-				},
-				{
-					id: 3,
-					titleOne: "韩小愈猪脚饭(华科店)",
-					status: "已送达",
-					titleTwo: "接受预订中",
-					price: 26.4,
-					orderNum: 1,
-					orderTime: "2024-06-28 10:49:25",
-					orderDishesList: [
-						{ id: 1, img: '../../static/indexCard3.jpg'},
-						{ id: 2, img: '../../static/indexCard2.jpg'},
-						{ id: 3, img: '../../static/indexCard1.jpg'}
-					]
-				}
-			]
-		}
-	},
-	components: {
-		orderFormCardVue
-	},
-	created() {
-		console.log("formCardList: ", this.formCardList);
-	}
-}
+const store = useStore();
+
+// 从 Vuex 获取订单项目
+const orderItems = store.state.orderItems;
 </script>
 
 <style>
