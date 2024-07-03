@@ -1,4 +1,3 @@
-<!-- OrderedListCard.vue -->
 <template>
   <view class="orderedListCard" v-if="oCLNum > 0">
     <view class="oLCImg">
@@ -30,8 +29,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { defineProps } from 'vue';
+import { useStore } from 'vuex';
+import { defineProps, defineEmits } from 'vue';
+import { ref, watch } from 'vue';
 
 const props = defineProps({
   initialNum: {
@@ -42,11 +42,11 @@ const props = defineProps({
     type: String,
     default: '../../static/indexCard3.jpg'
   },
-  leftPic:{
+  leftPic: {
     type: String,
     default: '../../static/delete.png'
   },
-  rightPic:{
+  rightPic: {
     type: String,
     default: '../../static/addTrolly.png'
   },
@@ -59,25 +59,33 @@ const props = defineProps({
     default: '不加'
   },
   price: {
-    type: String,
+    type: Number,
     default: '21.9'
   }
 });
 
+const store = useStore();
+
 const oCLNum = ref(props.initialNum);
 
+watch(() => props.initialNum, (newValue) => {
+  oCLNum.value = newValue;
+});
+
 const increment = () => {
-  oCLNum.value += 1;
+  store.dispatch('addToCart', {
+    commodityName: props.name,
+    dCost: parseFloat(props.price)
+  });
 };
 
 const decrement = () => {
-  if (oCLNum.value > 1) {
-    oCLNum.value -= 1;
-  } else {
-    oCLNum.value = 0;
-  }
+  store.dispatch('removeFromCart', {
+    commodityName: props.name
+  });
 };
 </script>
+
 
 
 <style scoped>
