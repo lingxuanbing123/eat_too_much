@@ -11,6 +11,6 @@ import java.util.List;
 public interface GoodMapper {
 
     @Select("SELECT * FROM good_info WHERE businessId = #{businessId} ORDER BY goodId desc;")
-    List<Good> getGoodByBusinessId(@Param("businessId") String businessId);
+    List<Good> getGoodByBusinessId(@Param("businessId") int businessId);
 
 }
