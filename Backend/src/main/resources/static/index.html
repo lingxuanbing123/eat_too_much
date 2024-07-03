@@ -20,8 +20,22 @@
 
 
 <script>
-    function business() {
-        location.href = '/business.html'
+    function getBu(businessId) {
+        console.log(businessId);
+        fetch('/business/'+ businessId, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8"
+            }
+        }).then(res=>res.json())
+            .then(res=>{
+                console.log(res);
+                location.href = '/business.html'
+            })
+            .catch(e=>{
+                console.error(e)
+            })
+
     }
     function order() {
         location.href = '/order.html'
@@ -46,7 +60,7 @@
                 businessDiv.innerHTML += `
                 <div style="padding-bottom: 5px;color: #666;border-bottom: 1px solid #ccc"><span>${item.businessName}</span>
                 <span style="margin-left: 30px">${item.businessDetails}</span>
-                <span style="margin-left: 30px"><button id="business0" onclick="business()">商家</button></span>
+                <span style="margin-left: 30px"><button id="business0" onclick="getBu(${item.businessId})">商家</button></span>
                 </div>
                 `
             })
@@ -54,6 +68,13 @@
         .catch(e=>{
             console.error(e)
             location.href = '/login.html'
+        })
+    fetch('/business/getInfo').then(res=>res.text())
+        .then(res=>{
+            console.log(res);
+        })
+        .catch(e=>{
+            console.error(e)
         })
 </script>
 
