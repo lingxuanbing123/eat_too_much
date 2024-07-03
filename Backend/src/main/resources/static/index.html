@@ -9,15 +9,47 @@
 </head>
 <body>
     我是首页
+    <div>
+        <button id="order" onclick="order()">订单</button>
+        <button id="mine" onclick="mine()">我的</button>
+    </div>
+    <div id ="business">
+
+    </div>
+
+
 
 <script>
-    fetch('./info').then(res=>res.json())
+    function business() {
+        location.href = '/business.html'
+    }
+    function order() {
+        location.href = '/order.html'
+    }
+    function mine() {
+        location.href = '/mine.html'
+    }
+    fetch('/info').then(res=>res.json())
     .then(res=>{
         console.log(res);
     })
     .catch(e=>{console.error(e)
     location.href = '/login.html'
     })
+    fetch('/business/info').then(res=>res.json())
+        .then(res=>{
+            console.log(res);
+            const businessDiv = document.getElementById("business")
+            res.forEach(item=>{
+                businessDiv.innerHTML += `
+                <div style="padding-bottom: 5px;color: #666;border-bottom: 1px solid #ccc"><span>${item.businessName}</span>  <span style="margin-left: 30px">${item.businessDetails}</span> <span style="margin-left: 30px"><button id="business0" onclick="business()">商家</button></span></div>
+                `
+            })
+        })
+        .catch(e=>{
+            console.error(e)
+            location.href = '/login.html'
+        })
 </script>
 
 </body>
