@@ -41,8 +41,6 @@ public class AddressControl {
     @GetMapping("/address/info")
     public List<Address> list(HttpServletRequest request){
         User user = (User) request.getSession().getAttribute("user");
-
-
         if (addressMapper.getAddressByUId(user.getUserid())!=null) {
             System.out.println(addressMapper.getAddressByUId(user.getUserid()));
             return addressMapper.getAddressByUId(user.getUserid());
