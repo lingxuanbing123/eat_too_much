@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册</title>
+</head>
+<body>
+
+<input type="text" placeholder="输入手机号" id="userid">
+<input type="text" placeholder="输入用户名" id="username">
+<input type="password" placeholder="输入密码" id="pwd">
+<input type="password" placeholder="再次输入密码" id="pwd2">
+<button id="save" onclick="save()">完成注册</button>
+<button id="btn" onclick="toLogin()">跳转登录</button>
+
+<script>
+    function save(){
+        const useridIn = document.getElementById("userid");
+        const usernameIn = document.getElementById("username");
+        const pwdIn = document.getElementById("pwd");
+        const pwd2In = document.getElementById("pwd2");
+        const userid = useridIn.value;
+        const username = usernameIn.value;
+        const pwd = pwdIn.value;
+        const pwd2 = pwd2In.value;
+        if(!userid ||!username ||!pwd ||!pwd2){
+            alert("请填写完整的注册信息");
+        }else if(pwd!==pwd2){
+            alert("两次输入的密码不一致");
+        }
+
+
+        fetch('/register/save',{
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: 'POST',
+            body: JSON.stringify({userid: userid, username: username, password: pwd2})
+        }).then(res=>{
+            console.log(res)
+            if(res.status/200 < 2){
+                alert("注册成功");
+                useridIn.value = '';
+                usernameIn.value = '';
+                pwdIn.value = '';
+                pwd2In.value = '';
+            }else {
+                alert("注册失败");
+            }
+        })
+    }
+    function toLogin(){
+        location.href = "/login.html";
+    }
+
+</script>
+
+
+</body>
+</html>

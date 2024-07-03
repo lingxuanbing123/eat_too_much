@@ -1,38 +1,44 @@
 package com.cbl.backend.controller;
 
 import com.cbl.backend.entity.OrderInfo;
-import com.cbl.backend.service.OrderInfoService;
+import com.cbl.backend.mapper.OrderInfoMapper;
 import com.cbl.backend.utils.NewResult;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
-@Api(tags = "订单信息接口", value = "OrderInfoController")
-@RestController
-@RequestMapping("/api/orderInfo")
-public class OrderInfoController {
-    @Autowired
-    private OrderInfoService orderInfoService;
+import static java.sql.DriverManager.println;
 
-    @ApiOperation(value = "添加订单信息", notes = "添加订单信息")
-    @PostMapping("/addOrderInfo")
-    public NewResult addOrderInfo(@RequestBody OrderInfo orderInfo) {
-        int i = orderInfoService.addOrderInfo(orderInfo);
-        if (i > 0) {
-            return NewResult.success();
-        } else {
-            return NewResult.error("添加失败");
+@RestController
+public class OrderInfoController {
+    @Resource
+    OrderInfoMapper orderInfoMapper;
+
+    @GetMapping("/orderInfo/select")
+    public List<OrderInfo> getOrderInfoByUserId(@RequestBody String userId){
+        if(orderInfoMapper.getOrderInfoByUserId(userId) != null){
+            System.out.println(orderInfoMapper.getOrderInfoByUserId(userId));
+            return orderInfoMapper.getOrderInfoByUserId(userId);
+        }
+        else{
+            println("用户订单不存在");
+            return null;
         }
     }
 
-    @ApiOperation(value = "根据用户id获取订单信息", notes = "根据用户id获取订单信息")
-    @PostMapping("/getOrderInfoByUserId")
-    public List<OrderInfo> getOrderInfoByUserId(@RequestBody String userId) {
-        return orderInfoService.getOrderInfoByUserId(userId);
+    @PostMapping("/orderInfo/add")
+    public ResponseEntity<Void> addOrderInfo(@RequestBody OrderInfo orderInfo){
+        try {
+            orderInfoMapper.addOrderInfo(orderInfo);
+            return ResponseEntity.ok().build();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
     }
-
 }
