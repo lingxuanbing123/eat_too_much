@@ -19,7 +19,6 @@ public class BusinessControl {
     @GetMapping("/business/info")
     public List<Business> list(){
         if (businessMapper.getAll()!=null) {
-            System.out.println(businessMapper.getAll());
             return businessMapper.getAll();
         }
         else{
