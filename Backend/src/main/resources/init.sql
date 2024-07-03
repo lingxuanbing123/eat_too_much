@@ -1,78 +1,151 @@
 USE backend;
 
 /*
- * 商家信息表
- */
-CREATE TABLE IF NOT EXISTS `business_info`
+ Navicat Premium Data Transfer
+
+ Source Server         : localhost_3306
+ Source Server Type    : MySQL
+ Source Server Version : 80012
+ Source Host           : localhost:3306
+ Source Schema         : backend
+
+ Target Server Type    : MySQL
+ Target Server Version : 80012
+ File Encoding         : 65001
+
+ Date: 03/07/2024 09:00:56
+*/
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for address
+-- ----------------------------
+DROP TABLE IF EXISTS `address`;
+CREATE TABLE `address`
 (
-    `business_id`      int          NOT NULL AUTO_INCREMENT,-- 商家id
-    `business_name`    varchar(255) NOT NULL,-- 商家名称
-    `business_details` varchar(255) NOT NULL,-- 商家详情
-    PRIMARY KEY (`business_id`),
-    UNIQUE KEY (`business_id`)
-    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+    `id`      int(11)                                                           NOT NULL AUTO_INCREMENT,
+    `userid`  varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci  NOT NULL,
+    `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+    PRIMARY KEY (`id`) USING BTREE,
+    INDEX `order_info_ibfk_1` (`userid` ASC) USING BTREE,
+    CONSTRAINT `address_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_520_ci ROW_FORMAT = Dynamic;
 
-/*
- * 商品信息表
- */
-CREATE TABLE IF NOT EXISTS `good_info`
+-- ----------------------------
+-- Records of address
+-- ----------------------------
+INSERT INTO `address` VALUES (1, '19573022922', '华中科技大学');
+
+-- ----------------------------
+-- Table structure for business_info
+-- ----------------------------
+DROP TABLE IF EXISTS `business_info`;
+CREATE TABLE `business_info`
 (
-    `good_id`     int          NOT NULL AUTO_INCREMENT,-- 商品id
-    `good_name`   varchar(255) NOT NULL,-- 商品名称
-    `good_price`  double       NOT NULL,-- 商品价格
-    `business_id` int          NOT NULL,-- 商家id
-    PRIMARY KEY (`good_id`),
-    UNIQUE KEY (`good_id`),
-    FOREIGN KEY (`business_id`) REFERENCES `business_info` (`business_id`) ON DELETE CASCADE ON UPDATE CASCADE
-    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+    `businessId`      int(11)                                                           NOT NULL AUTO_INCREMENT,
+    `businessName`    varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+    `businessDetails` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+    PRIMARY KEY (`businessId`) USING BTREE,
+    UNIQUE INDEX `business_id` (`businessId` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_520_ci ROW_FORMAT = Dynamic;
 
-/*
- * 用户信息表
- */
-CREATE TABLE IF NOT EXISTS `user`
+-- ----------------------------
+-- Records of business_info
+-- ----------------------------
+INSERT INTO `business_info` VALUES (123, '123', '3121');
+INSERT INTO `business_info` VALUES (124, 'dak', 'dawda');
+
+-- ----------------------------
+-- Table structure for cart_info
+-- ----------------------------
+DROP TABLE IF EXISTS `cart_info`;
+CREATE TABLE `cart_info`
 (
-    `id`        int          NOT NULL AUTO_INCREMENT COMMENT '数据表中的用户序号',
-    `user_id`   varchar(11)  NOT NULL COMMENT '用户唯一标识号，默认使用登录的手机号',
-    `username` varchar(15)  NOT NULL,-- 用户名
-    `password`  varchar(255) NOT NULL,-- 密码
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `user_id` (`user_id`)
-    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+    `id`         int(11)                                                           NOT NULL AUTO_INCREMENT,
+    `userid`     varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci  NOT NULL,
+    `goodId`     int(11)                                                           NOT NULL,
+    `goodName`   varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+    `goodPrice`  double                                                            NOT NULL,
+    `goodNum`    int(11)                                                           NOT NULL DEFAULT 0,
+    `businessId` int(11)                                                           NOT NULL,
+    PRIMARY KEY (`id`) USING BTREE,
+    INDEX `good_id` (`goodId` ASC) USING BTREE,
+    INDEX `business_id` (`businessId` ASC) USING BTREE,
+    INDEX `cart_info_ibfk_1` (`userid` ASC) USING BTREE,
+    CONSTRAINT `cart_info_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `cart_info_ibfk_3` FOREIGN KEY (`businessId`) REFERENCES `business_info` (`businessId`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_520_ci ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Records of cart_info
+-- ----------------------------
 
-/*
- * 订单信息表
- */
-CREATE TABLE IF NOT EXISTS `order_info`
+-- ----------------------------
+-- Table structure for good_info
+-- ----------------------------
+DROP TABLE IF EXISTS `good_info`;
+CREATE TABLE `good_info`
 (
-    `id`          int          NOT NULL AUTO_INCREMENT,-- 订单序号
-    `user_id`     varchar(11)  NOT NULL,-- 用户id
-    `order_date`  datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单创建时间',
-    `is_pay`      boolean      NOT NULL DEFAULT FALSE,-- 是否支付
-    `good_num`    int          NOT NULL DEFAULT 0,-- 商品数量
-    `order_prices` double       NOT NULL DEFAULT 0,-- 商品价格
-    `good_id`     int          NOT NULL DEFAULT 0,-- 商品id
-    `good_name`   varchar(255) NOT NULL,-- 商品名称
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_520_unicode_ci;
+    `goodId`     int(11)                                                           NOT NULL,
+    `goodName`   varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+    `goodPrice`  double                                                            NOT NULL,
+    `businessId` int(11)                                                           NOT NULL,
+    PRIMARY KEY (`goodId`) USING BTREE,
+    UNIQUE INDEX `good_id` (`goodId` ASC) USING BTREE,
+    INDEX `business_id` (`businessId` ASC) USING BTREE,
+    CONSTRAINT `good_info_ibfk_1` FOREIGN KEY (`businessId`) REFERENCES `business_info` (`businessId`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_520_ci ROW_FORMAT = Dynamic;
 
-INSERT INTO `user` VALUES (17,'85651652','user','user');
+-- ----------------------------
+-- Records of good_info
+-- ----------------------------
+INSERT INTO `good_info` VALUES (1, '烤鸡', 100, 123);
+INSERT INTO `good_info` VALUES (2, '烤鸭', 100, 123);
+INSERT INTO `good_info` VALUES (3, '饭团', 100, 124);
 
-/*
- * 购物车信息表
- */
-CREATE TABLE IF NOT EXISTS `cart_info`
+-- ----------------------------
+-- Table structure for order_info
+-- ----------------------------
+DROP TABLE IF EXISTS `order_info`;
+CREATE TABLE `order_info`
 (
-    `id`          int          NOT NULL AUTO_INCREMENT,-- 购物车序号
-    `user_id`     varchar(11)  NOT NULL,-- 用户id
-    `good_id`     int          NOT NULL,-- 商品id
-    `good_name`   varchar(255) NOT NULL,-- 商品名称
-    `good_price`  double       NOT NULL,-- 商品价格
-    `good_num`    int          NOT NULL DEFAULT 0,-- 商品数量
-    `business_id` int          NOT NULL,-- 商家id
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (`good_id`) REFERENCES `good_info` (`good_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (`business_id`) REFERENCES `business_info` (`business_id`) ON DELETE CASCADE ON UPDATE CASCADE
-    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+    `id`          int(11)                                                           NOT NULL AUTO_INCREMENT,
+    `userid`      varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci  NOT NULL,
+    `orderDate`   datetime                                                          NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单创建时间',
+    `isPay`       tinyint(1)                                                        NOT NULL DEFAULT 0,
+    `goodNum`     int(11)                                                           NOT NULL DEFAULT 0,
+    `orderPrices` double                                                            NOT NULL DEFAULT 0,
+    `goodId`      int(11)                                                           NOT NULL DEFAULT 0,
+    `goodName`    varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+    PRIMARY KEY (`id`) USING BTREE,
+    INDEX `order_info_ibfk_1` (`userid` ASC) USING BTREE,
+    CONSTRAINT `order_info_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_520_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of order_info
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user`
+(
+    `id`       int(11)                                                          NOT NULL AUTO_INCREMENT COMMENT '数据表中的用户序号',
+    `userid`   varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL COMMENT '用户唯一标识号，默认使用登录的手机号',
+    `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci    NOT NULL,
+    `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci    NOT NULL,
+    PRIMARY KEY (`id`) USING BTREE,
+    UNIQUE INDEX `userid` (`userid` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES (22, '1234567910', 'user3', 'admin');
+INSERT INTO `user` VALUES (25, '19573022922', 'user1', 'admin');
+
+SET FOREIGN_KEY_CHECKS = 1;
