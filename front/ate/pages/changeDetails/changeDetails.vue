@@ -1,7 +1,6 @@
 <template>
   <view class="container">
     <view class="title">
-      <!-- 返回上一个页面 -->
       <view class="back" @click="backLast">
         <
       </view>
@@ -10,14 +9,12 @@
       </view>
       <view class="right"></view>
     </view>
-
     <view class="input">
-      <input class="inputItem" type="text" :placeholder="notice" v-model="inputValue"/>
+      <input class="inputItem" type="text" :placeholder="notice" v-model="inputValue" />
     </view>
     <view class="inputNotice">
       {{ name }} 只能修改一次，5-24个字
     </view>
-    <!-- 确认按钮 -->
     <view class="inputBtn" :class="{ active: isInputValid }" @click="confirmChange">
       确认修改
     </view>
@@ -28,6 +25,7 @@
 export default {
   data() {
     return {
+      id: null,
       name: '',
       notice: '',
       inputValue: ''
@@ -39,8 +37,11 @@ export default {
     }
   },
   onLoad(options) {
+    this.id = parseInt(options.id);
     this.name = options.name;
     this.notice = `请输入${this.name}`;
+    const storedValues = uni.getStorageSync('storedValues') || {};
+    this.inputValue = storedValues[this.id] || '';
   },
   methods: {
     backLast() {
@@ -48,12 +49,11 @@ export default {
     },
     confirmChange() {
       if (this.isInputValid) {
-        // Store the input value in localStorage or Vuex
-        uni.setStorageSync('inputValue', this.inputValue);
-
-        // Navigate to myDetailsTo page
+        const storedValues = uni.getStorageSync('storedValues') || {};
+        storedValues[this.id] = this.inputValue;
+        uni.setStorageSync('storedValues', storedValues);
         uni.navigateTo({
-          url: `/pages/myDetailsTo/myDetailsTo`
+          url: `/pages/myDetailsTo/myDetailsTo?id=${this.id}&name=${this.name}`
         });
       }
     }

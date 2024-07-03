@@ -13,9 +13,8 @@
         修改{{ name }}
       </view>
     </view>
-    <!-- 显示账号，地址，昵称的内容 -->
     <view class="mainPage">
-      {{inputValue}}
+      {{ inputValue }}
     </view>
   </view>
 </template>
@@ -26,24 +25,24 @@ export default {
     return {
       id: null,
       name: '',
-	  inputValue:''
+      inputValue: ''
     }
   },
   onLoad(options) {
     this.id = parseInt(options.id);
     this.name = options.name;
-	 this.inputValue = uni.getStorageSync('inputValue');
+    const storedValues = uni.getStorageSync('storedValues') || {};
+    this.inputValue = storedValues[this.id] || '';
   },
   methods: {
     backMyDetails() {
-      // uni.navigateBack();
-	  uni.switchTab({
-	  	url:'/pages/MyDetails/MyDetails'
-	  })
+      uni.switchTab({
+        url: '/pages/MyDetails/MyDetails'
+      });
     },
     toChangeDetails() {
       uni.navigateTo({
-        url: `/pages/changeDetails/changeDetails?name=${this.name}`
+        url: `/pages/changeDetails/changeDetails?id=${this.id}&name=${this.name}`
       });
     }
   }
