@@ -12,10 +12,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class OrderInfo {
     private Integer id;
-    private Integer userId;
-    private Integer goodsId;
-    private Integer goodsNum;
-    private Integer goodsPrice;
+    private String userid;
+    private Integer goodId;
+    private Integer goodNum;
+    private Double orderPrices;
+    private String goodName;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime orderDate;
     private boolean isPay;

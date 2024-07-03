@@ -29,5 +29,4 @@ public class GoodControl {
             return null;
         }
     }
-
 }
