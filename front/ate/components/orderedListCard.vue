@@ -1,4 +1,3 @@
-<!-- OrderedListCard.vue -->
 <template>
   <view class="orderedListCard" v-if="oCLNum > 0">
     <view class="oLCImg">
@@ -30,8 +29,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { defineProps } from 'vue';
+import { ref, watch } from 'vue';
+import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
   initialNum: {
@@ -64,20 +63,27 @@ const props = defineProps({
   }
 });
 
+const emits = defineEmits(['update:initialNum']);
+
 const oCLNum = ref(props.initialNum);
+
+watch(() => props.initialNum, (newValue) => {
+  oCLNum.value = newValue;
+});
 
 const increment = () => {
   oCLNum.value += 1;
+  emits('update:initialNum', oCLNum.value);
 };
 
 const decrement = () => {
-  if (oCLNum.value > 1) {
+  if (oCLNum.value > 0) {
     oCLNum.value -= 1;
-  } else {
-    oCLNum.value = 0;
+    emits('update:initialNum', oCLNum.value);
   }
 };
 </script>
+
 
 
 <style scoped>

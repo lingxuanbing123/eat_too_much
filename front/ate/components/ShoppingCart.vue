@@ -17,10 +17,9 @@
           :name="item.commodityName"
           :price="item.dCost"
           :initialNum="item.quantity"
+          @update:initialNum="updateQuantity(item.commodityName, $event)"
         />
-		<view class="jumpCardListBottom">
-			
-		</view>
+        <view class="jumpCardListBottom"></view>
       </view>
     </view>
     <view class="choseFoodTotalCard">
@@ -67,7 +66,12 @@ const clearItems = () => {
   store.dispatch('clearCart');
   showJumpCard.value = false;
 };
+
+const updateQuantity = (commodityName, quantity) => {
+  store.dispatch('updateCartItemQuantity', { commodityName, quantity });
+};
 </script>
+
 
 <style scoped>
 .container {
