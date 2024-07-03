@@ -12,6 +12,6 @@ public class RegisterControl
 
     @PostMapping("/register")
     public User register(@RequestBody User user){
-        
+        return user;
     }
 }
