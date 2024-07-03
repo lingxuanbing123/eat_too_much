@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的</title>
+</head>
+<body>
+    电话是
+    昵称是
+    <button id="nameChange" onclick="nameChange()">修改昵称</button>
+    <button id="myAddress" onclick="myAddress()">管理地址</button>
+
+<script>
+    function nameChange() {
+        let newName = prompt("请输入新��称");
+        fetch('/nameChange', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({newName: newName})
+        }).then(res => res.text()).then(res => {
+            console.log(res);
+            if (res === 'OK'){
+                alert("��称修改成功")
+            } else {
+                alert("��称修改失败")
+            }
+        })
+    }
+    function myAddress(){
+        location.href = '/myAddress.html'  //跳转到管理地址的页面
+    }
+    fetch('/info').then(res=>res.json())
+        .then(res=>{
+            console.log(res);
+        })
+        .catch(e=>{console.error(e)
+            location.href = '/login.html'
+        })
+
+
+</script>
+</body>
+</html>
