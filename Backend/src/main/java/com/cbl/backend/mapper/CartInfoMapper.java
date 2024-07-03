@@ -9,12 +9,12 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 public interface CartInfoMapper {
-    @Select("SELECT * FROM `cart_info` WHERE userid = #{userId} ORDER BY id desc")
-    List<CartInfo> getCartInfoByUserId(@Param("userId") String userId);
+    @Select("SELECT * FROM `cart_info` WHERE userid = #{userid} ORDER BY id desc")
+    List<CartInfo> getCartInfoByUserId(@Param("userid") String userid);
 
-    @Insert("INSERT INTO `cart_info`(userid,goodId,goodName,goodPrice,goodNum,businessId) VALUES(#{userId},#{goodId},#{goodName},#{goodPrice},#{goodNum},#{businessId})")
-    void addCartInfo(CartInfo cartInfo);
+    @Insert("INSERT INTO `cart_info`(userid,goodId,goodName,goodPrice,goodNum,businessId) VALUES(#{userid},#{goodId},#{goodName},#{goodPrice},#{goodNum},#{businessId})")
+    void add(CartInfo cartInfo);
 
-    @Delete("DELETE FROM `cart_info` WHERE userid = #{userId} AND goodId = #{goodId}")
-    void deleteCartInfoByUserAndGoodId(@Param("userId") String userId, @Param("goodId") int goodId);
+    @Delete("DELETE FROM `cart_info` WHERE id = #{id} ")
+    void delete(@Param("id") int id);
 }

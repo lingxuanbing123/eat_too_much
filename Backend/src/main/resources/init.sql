@@ -81,7 +81,7 @@ CREATE TABLE `cart_info`
 -- ----------------------------
 -- Records of cart_info
 -- ----------------------------
-
+INSERT INTO `cart_info` (`userid`,)
 -- ----------------------------
 -- Table structure for good_info
 -- ----------------------------

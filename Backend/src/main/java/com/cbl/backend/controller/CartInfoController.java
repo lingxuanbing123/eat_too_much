@@ -1,14 +1,14 @@
 package com.cbl.backend.controller;
 
 import com.cbl.backend.entity.CartInfo;
+import com.cbl.backend.entity.User;
 import com.cbl.backend.mapper.CartInfoMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static java.sql.DriverManager.println;
@@ -18,11 +18,13 @@ public class CartInfoController {
     @Resource
     CartInfoMapper cartInfoMapper;
 
-    @GetMapping("/cartInfo/select")
-    public List<CartInfo> GetCartInfoByUserId(@RequestBody String userId){
-        if (cartInfoMapper.getCartInfoByUserId(userId) != null){
-            System.out.println(cartInfoMapper.getCartInfoByUserId(userId));
-            return cartInfoMapper.getCartInfoByUserId(userId);
+    @GetMapping("/cartInfo/info")
+    public List<CartInfo> list(HttpServletRequest request){
+
+        User user = (User)request.getSession().getAttribute("user");
+        if(cartInfoMapper.getCartInfoByUserId(user.getUserid()) != null){
+            System.out.println(cartInfoMapper.getCartInfoByUserId(user.getUserid()));
+            return cartInfoMapper.getCartInfoByUserId(user.getUserid());
         }
         else {
             println("该用户无购物车信息");
@@ -31,9 +33,9 @@ public class CartInfoController {
     }
 
     @PostMapping("/cartInfo/add")
-    public ResponseEntity<Void> addCartInfo(@RequestBody CartInfo cartInfo){
+    public ResponseEntity<Void> add(@RequestBody CartInfo cartInfo){
         try {
-            cartInfoMapper.addCartInfo(cartInfo);
+            cartInfoMapper.add(cartInfo);
             return ResponseEntity.ok().build();
         }
         catch (Exception e){
@@ -42,16 +44,15 @@ public class CartInfoController {
         }
     }
 
-    @PostMapping("/cartInfo/delete")
-    public ResponseEntity<Void> deleteCartInfoByUserAndGoodId(@RequestBody String userId, @RequestBody int goodId ){
+    @DeleteMapping("/cartInfo/{id}")
+    public ResponseEntity<Void> delete(@PathVariable int id){
         try{
-            cartInfoMapper.deleteCartInfoByUserAndGoodId(userId, goodId);
-            return ResponseEntity.ok().build();
+            cartInfoMapper.delete(id);
         }
         catch (Exception e){
-            e.printStackTrace();
-            return ResponseEntity.badRequest().build();
+            System.err.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 }
