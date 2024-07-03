@@ -18,6 +18,13 @@
     function cart() {
         location.href = "cart.html";
     }
+    fetch('/info').then(res=>res.json())
+        .then(res=>{
+            console.log(res);
+        })
+        .catch(e=>{console.error(e)
+            location.href = '/login.html'
+        })
 
 </script>
 
