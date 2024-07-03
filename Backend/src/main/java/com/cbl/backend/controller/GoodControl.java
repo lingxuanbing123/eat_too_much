@@ -30,27 +30,4 @@ public class GoodControl {
         }
     }
 
-    @PostMapping("/good/add")
-    public ResponseEntity<Void> addGood(@RequestBody Good good){
-        try {
-            goodMapper.addGood(good);
-            return ResponseEntity.ok().build();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    @PostMapping("/good/delete")
-    public ResponseEntity<Void> deleteGoodByGoodId(@RequestBody int goodId){
-        try {
-            goodMapper.deleteGoodByGoodId(goodId);
-            return ResponseEntity.ok().build();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().build();
-        }
-    }
 }

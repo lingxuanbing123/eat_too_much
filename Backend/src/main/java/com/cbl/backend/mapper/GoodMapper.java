@@ -13,9 +13,4 @@ public interface GoodMapper {
     @Select("SELECT * FROM good_info WHERE businessId = #{businessId} ORDER BY goodId desc;")
     List<Good> getGoodByBusinessId(@Param("businessId") String businessId);
 
-    @Insert("INSERT INTO good_info(goodName,goodPrice,businessId) VALUES(#{goodName},#{goodPrice},#{businessId})")
-    void addGood(Good good);
-
-    @Delete("DELETE FROM good_info WHERE goodId = #{goodId}")
-    void deleteGoodByGoodId(@Param("goodId") int goodId);
 }
