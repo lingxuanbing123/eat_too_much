@@ -1,4 +1,7 @@
 import App from './App'
+import store from './store'; // 导入 store
+
+
 
 // #ifndef VUE3
 import Vue from 'vue'
@@ -8,6 +11,7 @@ App.mpType = 'app'
 const app = new Vue({
   ...App
 })
+app.mount('#app');
 app.$mount()
 // #endif
 
@@ -15,8 +19,10 @@ app.$mount()
 import { createSSRApp } from 'vue'
 export function createApp() {
   const app = createSSRApp(App)
+  app.use(store);
   return {
     app
   }
 }
 // #endif
+
