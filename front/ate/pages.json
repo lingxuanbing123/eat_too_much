@@ -65,7 +65,22 @@
 			{
 				"navigationBarTitleText" : ""
 			}
+		},
+		{
+			"path" : "pages/myDetailsTo/myDetailsTo",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/changeDetails/changeDetails",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
+		
 		
 		
 	],
