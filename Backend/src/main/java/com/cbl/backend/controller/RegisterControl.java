@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cbl.backend.entity.User;
 
 import javax.annotation.Resource;
-
 @RestController
 public class RegisterControl
 {
@@ -26,5 +25,4 @@ public class RegisterControl
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
 }
