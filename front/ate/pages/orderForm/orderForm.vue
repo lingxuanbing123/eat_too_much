@@ -1,6 +1,20 @@
 <template>
-  <view class="orderForm">
-    <view class="orderFormTitle">订单详情</view>
+  <view class="container">
+    <view class="formHead">
+		<view class="oT1">
+			全部
+		</view>
+		<view class="oT1">
+			进行中
+		</view>
+		<view class="oT1">
+			待评价
+		</view>
+		<view class="oT1">
+			退款
+		</view>
+	
+	</view>
     <view class="orderFormContent">
       <orderFormCard
         v-for="(item, index) in orderItems"
@@ -28,6 +42,8 @@ const orderItems = computed(() => store.getters.orderItems);
 console.log("orderItems:", orderItems.value);
 </script>
 
+
+
 <style>
 .container {
 	background-color: #F4F7FC;
@@ -44,10 +60,11 @@ console.log("orderItems:", orderItems.value);
 	justify-content: space-around;
 }
 
-.formHead .fH1,
-.formHead .fH2,
-.formHead .fH3,
-.formHead .fH4 {
+
+.formHead .oT1,
+.formHead .oT2,
+.formHead .oT3,
+.formHead .oT4 {
 	display: flex;
 	justify-content: center;
 	align-items: center;

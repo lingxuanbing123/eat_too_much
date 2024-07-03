@@ -1,4 +1,3 @@
-<!-- orderFormCard.vue -->
 <template>
   <!-- 外卖订单页面卡片 -->
   <view class="orderFormCard">
@@ -55,7 +54,7 @@ const props = defineProps({
   },
   status: {
     type: String,
-    default: '已送达',
+    default: '配送中',
   },
   additionalInfo: {
     type: String,

@@ -78,14 +78,17 @@ const handleSettle = () => {
   if (hasContent.value) {
     console.log("Settling order with items:", items.value); // 调试输出
     store.dispatch('setOrderItems', items.value);
+    store.dispatch('clearCart'); // 清空购物车
 
     // 导航到 orderForm 页面
     uni.switchTab({
       url: '/pages/orderForm/orderForm'
     });
+
+    // 关闭 jumpCard
+    showJumpCard.value = false;
   }
 };
-
 </script>
 
 <style scoped>
