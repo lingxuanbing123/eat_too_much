@@ -1,6 +1,5 @@
 <!-- OrderedListCard.vue -->
 <template>
-  <!-- 结算页面已选中外卖的卡片 -->
   <view class="orderedListCard" v-if="oCLNum > 0">
     <view class="oLCImg">
       <image class="oLCImgPic" :src="imgSrc"></image>
@@ -31,7 +30,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
+import { defineProps } from 'vue';
 
 const props = defineProps({
   initialNum: {
@@ -43,12 +43,12 @@ const props = defineProps({
     default: '../../static/indexCard3.jpg'
   },
   leftPic:{
-	  type: String,
-	  default: '../../static/delete.png'
+    type: String,
+    default: '../../static/delete.png'
   },
   rightPic:{
-	  type: String,
-	  default: '../../static/addTrolly.png'
+    type: String,
+    default: '../../static/addTrolly.png'
   },
   name: {
     type: String,
@@ -62,22 +62,23 @@ const props = defineProps({
     type: String,
     default: '21.9'
   }
-})
+});
 
-const oCLNum = ref(props.initialNum)
+const oCLNum = ref(props.initialNum);
 
 const increment = () => {
-  oCLNum.value += 1
-}
+  oCLNum.value += 1;
+};
 
 const decrement = () => {
   if (oCLNum.value > 1) {
-    oCLNum.value -= 1
+    oCLNum.value -= 1;
   } else {
-    oCLNum.value = 0
+    oCLNum.value = 0;
   }
-}
+};
 </script>
+
 
 <style scoped>
 .orderedListCard {
