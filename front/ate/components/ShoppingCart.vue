@@ -76,12 +76,12 @@ const clearItems = () => {
 
 const handleSettle = () => {
   if (hasContent.value) {
-    // 派发动作设置订单项目
+    console.log("Settling order with items:", items.value); // 调试输出
     store.dispatch('setOrderItems', items.value);
 
     // 导航到 orderForm 页面
-    uni.navigateTo({
-      url: '/pages/orderForm/orderForm' // 确保路径是正确的
+    uni.switchTab({
+      url: '/pages/orderForm/orderForm'
     });
   }
 };

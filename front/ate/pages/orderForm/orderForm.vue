@@ -5,9 +5,9 @@
       <orderFormCard
         v-for="(item, index) in orderItems"
         :key="index"
-        :imgSrc="item.imgSrc" 
-        :name="item.name"
-        :price="item.price"
+        :imgSrc="item.cdPic" 
+        :name="item.commodityName"
+        :price="item.dCost"
         :quantity="item.quantity"
       />
     </view>
@@ -16,12 +16,16 @@
 
 <script setup>
 import { useStore } from 'vuex';
+import { computed } from 'vue';
 import orderFormCard from '@/components/orderFormCard.vue';
 
 const store = useStore();
 
 // 从 Vuex 获取订单项目
-const orderItems = store.state.orderItems;
+const orderItems = computed(() => store.getters.orderItems);
+
+// 调试输出
+console.log("orderItems:", orderItems.value);
 </script>
 
 <style>

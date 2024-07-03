@@ -59,7 +59,7 @@ const props = defineProps({
     default: '不加'
   },
   price: {
-    type: String,
+    type: Number,
     default: '21.9'
   }
 });

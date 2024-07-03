@@ -1,84 +1,81 @@
+<!-- orderFormCard.vue -->
 <template>
-	<!-- 外卖订单页面卡片 -->
-    <view class="orderFormCard">
-      <view class="cardTitle">
-        <view class="cardTitleImg">
-          <image class="cardTitlePic" src="@/static/indexCard3.jpg"></image>
-        </view>
-        <view class="title">
-          <view class="titleOne">{{ titleOne }}</view>
-          <view class="status">{{ status }}</view>
-          <view class="titleTwo">{{ titleTwo }}</view>
-        </view>
+  <!-- 外卖订单页面卡片 -->
+  <view class="orderFormCard">
+    <view class="cardTitle">
+      <view class="cardTitleImg">
+        <image class="cardTitlePic" :src="imgSrc"></image>
       </view>
-      <view class="orderDishes">
-        <view class="orderDishesList">
-          <view
-            class="orderDishesImg"
-            v-for="(item, index) in orderDishesList"
-            :key="item.id"
-          >
-            <image class="orderDishesImgPic" :src="item.img"></image>
-          </view>
-        </view>
-        <view class="price">
-          {{ price }}元
-          <view class="orderNum">共{{ orderNum }}件</view>
-        </view>
-      </view>
-      <!-- 时间 -->
-      <view class="orderTime">{{ orderTime }}</view>
-      <view class="bottomButton">
-        <view class="bottomButton1" @click="toggleDis">再来一单</view>
-        <view class="bottomButton2">评价</view>
+      <view class="title">
+        <view class="titleOne">{{ name }}</view>
+        <view class="status">{{ status }}</view>
+        <view class="titleTwo">{{ additionalInfo }}</view>
       </view>
     </view>
- 
+    <view class="orderDishes">
+      <view class="orderDishesList">
+        <view class="orderDishesImg">
+          <image class="orderDishesImgPic" :src="imgSrc"></image>
+        </view>
+      </view>
+      <view class="price">
+        {{ price }}元
+        <view class="orderNum">共{{ quantity }}件</view>
+      </view>
+    </view>
+    <!-- 时间 -->
+    <view class="orderTime">{{ orderTime }}</view>
+    <view class="bottomButton">
+      <view class="bottomButton1" @click="toggleDis">再来一单</view>
+      <view class="bottomButton2">评价</view>
+    </view>
+  </view>
 </template>
 
 <script setup>
-import {ref} from 'vue' 
+import { ref } from 'vue';
+import { defineProps } from 'vue';
+
 const props = defineProps({
-  titleOne: {
+  imgSrc: {
     type: String,
-    default: '韩小愈猪脚饭(华科店)',
+    default: ''
+  },
+  name: {
+    type: String,
+    default: ''
+  },
+  price: {
+    type: Number,
+    default: 0
+  },
+  quantity: {
+    type: Number,
+    default: 1
   },
   status: {
     type: String,
     default: '已送达',
   },
-  titleTwo: {
+  additionalInfo: {
     type: String,
     default: '接受预订中',
-  },
-  price: {
-    type: Number,
-    default: 26.4,
-  },
-  orderNum: {
-    type: Number,
-    default: 1,
   },
   orderTime: {
     type: String,
     default: '2024-06-28 10:49:25',
-  },
-  orderDishesList: {
-    type: Array,
-    default: () => []
   }
-})
+});
 
 const toggleDis = () => {
   uni.switchTab({
-  	url: '/pages/discover/discover'
+    url: '/pages/discover/discover'
   });
 }
 </script>
 
+
 <style scoped>
-
-
 .orderFormCard {
   width: 700rpx;
   height: 400rpx;
