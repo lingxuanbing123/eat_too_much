@@ -58,7 +58,10 @@ export default {
 					}
 			      })
 			      .catch(e => {
-			        console.error('Fetch error:', e);
+			        console.error(e)
+			        uni.navigateTo({
+			          url: `/pages/logIn/logIn`
+			        });
 			      });
 
 	},
@@ -81,7 +84,8 @@ export default {
 .container .title {
   width: 100%;
   height: 100rpx;
-  background-color: beige;
+  background-color: cadetblue;
+  font-size: 40rpx;
   display: flex;
   flex-direction: row;
 }
