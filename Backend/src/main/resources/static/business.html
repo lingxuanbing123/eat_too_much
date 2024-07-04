@@ -9,15 +9,52 @@
 </head>
 <body>
     我是商家
-    <button id="good" onclick="good()">商品</button>
     <button id="cart" onclick="cart()">购物车</button>
+    <div id="good">
+
+    </div>
 <script>
-    function good() {
-        location.href = "good.html";
+    function addGood(id) {
+        console.log(id);
     }
     function cart() {
         location.href = "cart.html";
     }
+    fetch('/info').then(res=>res.json())
+        .then(res=>{
+            console.log(res);
+        })
+        .catch(e=>{console.error(e)
+            location.href = '/login.html'
+        })
+    fetch('/business/getInfo').then(res=>res.json())
+        .then(res=>{
+            console.log(res);
+        })
+        .catch(e=>{
+            console.error(e)
+        })
+    fetch('/good/info').then(res=>res.json())
+        .then(res=>{
+            console.log(res);
+             const goodDiv = document.getElementById("good")
+
+             res.forEach(item=>{
+                 goodDiv.innerHTML += `
+             <div style="padding-bottom: 5px;color: #666;border-bottom: 1px solid #ccc"><span>${item.goodName}</span>
+             <span style="margin-left: 30px">${item.goodPrice}</span>
+             <span style="margin-left: 30px"><button id="business0" onclick="addGood(${item.goodId})">+</button></span>
+             </div>
+             `
+             })
+        })
+        .catch(e=>{
+            console.error(e)
+            //location.href = '/login.html'
+        })
+
+
+
 
 </script>
 

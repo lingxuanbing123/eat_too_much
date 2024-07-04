@@ -1,38 +1,69 @@
 package com.cbl.backend.controller;
 
+import com.cbl.backend.entity.Business;
 import com.cbl.backend.entity.OrderInfo;
-import com.cbl.backend.service.OrderInfoService;
+import com.cbl.backend.entity.User;
+import com.cbl.backend.mapper.OrderInfoMapper;
 import com.cbl.backend.utils.NewResult;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@Api(tags = "订单信息接口", value = "OrderInfoController")
-@RestController
-@RequestMapping("/api/orderInfo")
-public class OrderInfoController {
-    @Autowired
-    private OrderInfoService orderInfoService;
+import static java.sql.DriverManager.println;
 
-    @ApiOperation(value = "添加订单信息", notes = "添加订单信息")
-    @PostMapping("/addOrderInfo")
-    public NewResult addOrderInfo(@RequestBody OrderInfo orderInfo) {
-        int i = orderInfoService.addOrderInfo(orderInfo);
-        if (i > 0) {
-            return NewResult.success();
-        } else {
-            return NewResult.error("添加失败");
+@RestController
+public class OrderInfoController {
+    @Resource
+    OrderInfoMapper orderInfoMapper;
+
+    @GetMapping("/orderInfo/info")
+    public List<OrderInfo> list(HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        if(orderInfoMapper.getOrderInfoByUserId(user.getUserid()) != null){
+            System.out.println(orderInfoMapper.getOrderInfoByUserId(user.getUserid()));
+            return orderInfoMapper.getOrderInfoByUserId(user.getUserid());
+        }
+        else{
+            println("用户订单不存在");
+            return null;
         }
     }
 
-    @ApiOperation(value = "根据用户id获取订单信息", notes = "根据用户id获取订单信息")
-    @PostMapping("/getOrderInfoByUserId")
-    public List<OrderInfo> getOrderInfoByUserId(@RequestBody String userId) {
-        return orderInfoService.getOrderInfoByUserId(userId);
+    @PostMapping("/orderInfo/add")
+    public ResponseEntity<Void> addOrderInfo(@RequestBody OrderInfo orderInfo,HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        if(user!= null){
+            orderInfo.setUserid(user.getUserid());
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        try {
+            orderInfoMapper.add(orderInfo);
+        }
+        catch (Exception e){
+            System.err.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/orderInfo/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") int id){
+        try {
+            orderInfoMapper.delete(id);
+        }
+        catch (Exception e){
+            System.err.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

@@ -23,6 +23,9 @@
 
 <script>
 export default {
+	created() {
+		    this.fetchData();
+		  },
   data() {
     return {
       id: null,
@@ -47,6 +50,15 @@ export default {
     backLast() {
       uni.navigateBack();
     },
+	fetchData(){
+			  fetch('http://localhost:8089/info').then(res=>res.json())
+			      .then(res=>{
+			          console.log(res);
+			      })
+			      .catch(e=>{console.error(e)
+			      
+			      })
+	},
     confirmChange() {
       if (this.isInputValid) {
         const storedValues = uni.getStorageSync('storedValues') || {};

@@ -12,17 +12,17 @@
 		<view class="regesterCard">
 			<!-- 账号 -->
 			<view class="atCard">
-				<input class="at" type="text" placeholder="请输入账号" />
+				<input class="at" type="text" placeholder="请输入用户名" v-model ="username"/>
 			</view>
 			<!-- 密码 -->
 			<view class="passwordCard">
-				<input class="password" type="text" placeholder="请输入密码"/>
+				<input class="password" type="text" placeholder="请输入密码" v-model="pwd"/>
 			</view>
 			<view class="phoneNumCard">
-				<input class="phoneNum" type="text" placeholder="请输入电话号码" />
+				<input class="phoneNum" type="text" placeholder="请输入电话号码" v-model="userid" />
 			</view>
 			<view class="rePasswordCard">
-				<input class="rePassword" type="text" placeholder="请确认密码"/>
+				<input class="rePassword" type="text" placeholder="请确认密码" v-model ="pwd2"/>
 			</view>
 			
 			
@@ -31,7 +31,7 @@
 				</view>
 				注意事项: 账号 ，密码为2-10位
 			</view>
-			<view class="registerBtn">
+			<view class="registerBtn" @click="register">
 				注册
 			</view>
 		</view>
@@ -43,15 +43,49 @@
 	export default {
 		data() {
 			return {
-				
+				userid:'',
+				username:'',
+				pwd:'',
+				pwd2:''
 			}
 		},
 		methods: {
-			backToLogin(){
-				uni.navigateTo({
-				  url: `/pages/logIn/logIn`
-				});
+			register(){
+				const userid = this.userid;
+				const username = this.username;
+				const pwd = this.pwd;
+				const pwd2 = this.pwd2;
+				if(!userid ||!username ||!pwd ||!pwd2){
+				            alert("请填写完整的注册信息");
+							return
+				        }else if(pwd!==pwd2){
+				            alert("两次输入的密码不一致");
+							return
+				        }
+				fetch('http://localhost:8089/register/save',{
+				            headers: {
+				                "Content-Type": "application/json"
+				            },
+				            method: 'POST',
+				            body: JSON.stringify({userid: userid, username: username, password: pwd2})
+				        }).then(res=>{
+				            console.log(res)
+				            if(res.status/200 < 2){
+				                alert("注册成功");
+				                this.username = '';
+				                this.userid = '';
+				                this.pwd = '';
+				                this.pwd = '';
+								uni.navigateTo({
+								  url: `/pages/logIn/logIn`
+								});
+				            }else {
+				                alert("注册失败");
+				            }
+				        })				
+				
 			}
+			
 		}
 	}
 </script>

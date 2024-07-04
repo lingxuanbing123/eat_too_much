@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CartInfo {
     Integer id;
-    String user_id;
-    Integer good_id;
-    String good_name;
-    Double good_price;
-    Integer good_num;
-    Integer business_id;
+    String userid;
+    Integer goodId;
+    String goodName;
+    Double goodPrice;
+    Integer goodNum;
+    Integer businessId;
 }
