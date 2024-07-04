@@ -41,7 +41,9 @@ created() {
 	  		          console.log(res);
 	  		      })
 	  		      .catch(e=>{console.error(e)
-	  		      
+	  		      uni.navigateTo({
+	  		        url: `/pages/logIn/logIn`
+	  		      });
 	  		      })
 	  },
     detailsTo(item) {
