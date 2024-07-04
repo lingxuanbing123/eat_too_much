@@ -53,8 +53,8 @@
 	justify-content: center;
 	align-items: center;
 	font-size: 40rpx;
-	color: black;
-	background-color: seashell;
+	color: white;
+	background-color: cadetblue;
 }
 
 .container .logInCard{
