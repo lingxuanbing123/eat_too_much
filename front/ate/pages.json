@@ -8,6 +8,13 @@
 				"navigationBarTitleText" : ""
 			}
 		},
+    {
+			"path" : "pages/adressShow/adressShow",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
 		{
 			"path" : "pages/choseFood3/choseFood3",
 			"style" : 
