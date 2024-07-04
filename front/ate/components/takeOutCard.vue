@@ -198,6 +198,15 @@ function showHide(event) {
 }
 
 function handleClick() {
+	fetch('http://localhost:8089/business/info')
+        .then(res=>{
+            console.log(res);
+            
+        })
+        .catch(e=>{
+            console.error(e)
+            
+        })
   uni.navigateTo({
     url: '/pages/choseFood/choseFood' // 目标页面路径
   });
