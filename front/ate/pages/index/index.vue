@@ -17,10 +17,10 @@
 		</view>
 		<view class="prefer">
 			<!-- 搜索框 -->
-				<view class="searchButton">
+				<!-- <view class="searchButton">
 					搜索
 					
-				</view>
+				</view> -->
 			<!--美食外卖  -->
 			<view class="indexSquare">
 				<!-- 美食外卖 -->

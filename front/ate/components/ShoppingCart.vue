@@ -1,6 +1,9 @@
 <template>
   <view class="container">
+    <!-- 覆盖层用于展示选购卡片 -->
     <view v-if="showJumpCard" class="overlay" @click="toggleJumpCard"></view>
+
+    <!-- 选购卡片 -->
     <view class="jumpCard" :class="{ show: showJumpCard }">
       <view class="jumpCardTitle">
         已选商品
@@ -10,6 +13,7 @@
         </view>
       </view>
       <view class="jumpCardList">
+        <!-- 已选商品列表 -->
         <orderedListCard
           v-for="(item, index) in items"
           :key="index"
@@ -18,12 +22,13 @@
           :price="item.dCost"
           :initialNum="item.quantity"
         />
-		<view class="jumpCardListBottom">
-			
-		</view>
+        <view class="jumpCardListBottom"></view>
       </view>
     </view>
+
+    <!-- 总计和结算部分 -->
     <view class="choseFoodTotalCard">
+      <!-- 左侧部分显示商品数量和总金额 -->
       <view class="cardLeft" @click="toggleJumpCard">
         <image class="cardLeftImg" src="../static/cFTAfter.png"></image>
         <view class="numShow" v-if="hasContent">
@@ -33,7 +38,9 @@
           {{ totalMoney }}
         </view>
       </view>
-      <view class="cardright">
+      
+      <!-- 右侧结算按钮 -->
+      <view class="cardright" @click="handleSettle">
         <view :class="settleButtonClass">
           结算
         </view>
@@ -49,16 +56,15 @@ import orderedListCard from '@/components/orderedListCard.vue';
 
 const store = useStore();
 
+// 计算属性
 const items = computed(() => store.getters.cartItems);
 const itemCount = computed(() => store.getters.cartItemCount);
 const totalMoney = computed(() => '¥' + store.getters.cartTotalPrice.toFixed(2));
-
 const showJumpCard = ref(false);
-
 const hasContent = computed(() => items.value.length > 0);
-
 const settleButtonClass = computed(() => hasContent.value ? 'rightBtn active' : 'rightBtn inactive');
 
+// 方法
 const toggleJumpCard = () => {
   showJumpCard.value = !showJumpCard.value;
 };
@@ -66,6 +72,22 @@ const toggleJumpCard = () => {
 const clearItems = () => {
   store.dispatch('clearCart');
   showJumpCard.value = false;
+};
+
+const handleSettle = () => {
+  if (hasContent.value) {
+    console.log("Settling order with items:", items.value); // 调试输出
+    store.dispatch('setOrderItems', items.value);
+    store.dispatch('clearCart'); // 清空购物车
+
+    // 导航到 orderForm 页面
+    uni.switchTab({
+      url: '/pages/orderForm/orderForm'
+    });
+
+    // 关闭 jumpCard
+    showJumpCard.value = false;
+  }
 };
 </script>
 
