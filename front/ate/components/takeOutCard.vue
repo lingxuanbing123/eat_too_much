@@ -1,8 +1,6 @@
-<!-- takeOutCard.vue -->
-<!-- takeOutCard.vue -->
 <template>
   <!-- 首页外卖列表卡片 -->
-  <view class="takeOutCard" @click="handleClick">
+  <view class="takeOutCard" @click="handleCardClick">
     <!-- 左边大图图片 -->
     <view class="cardImage">
       <image class="cardImagePic" :src="cardImage"></image>
@@ -95,7 +93,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, defineProps } from 'vue';
 
 const props = defineProps({
   cardImage: {
@@ -138,7 +136,7 @@ const props = defineProps({
     type: String,
     default: "../../static/reBuy.png"
   },
-  hideImg: {
+  hideIm: {
     type: String,
     default: "../../static/hideButton.png"
   },
@@ -192,19 +190,36 @@ const isHide = ref(true);
 const hideIm = ref("../../static/hideButton1.png");
 
 function showHide(event) {
-  event.stopPropagation(); // Prevent the click event from propagating to the parent
+  event.stopPropagation(); // 阻止点击事件冒泡到父组件
   isHide.value = !isHide.value;
   hideIm.value = isHide.value ? "../../static/hideButton1.png" : "../../static/hideButton2.png";
 }
 
-function handleClick() {
-  uni.navigateTo({
-    url: '/pages/choseFood/choseFood' // 目标页面路径
-  });
+function handleCardClick() {
+  switch (props.cardName) {
+    case '韩小愈猪脚饭(华科店)':
+      uni.navigateTo({
+        url: '/pages/choseFood/choseFood',
+      });
+      break;
+    case '氧气层(华科东校区店)':
+      uni.navigateTo({
+        url: '/pages/choseFood2/choseFood2',
+      });
+      break;
+    case '熊猫盖码饭(华科校内店)':
+      uni.navigateTo({
+        url: '/pages/choseFood3/choseFood3',
+      });
+      break;
+    // 可以根据需要添加更多的 case
+    default:
+      break;
+  }
 }
 </script>
 
-<style>
+<style scoped>
 .takeOutCard {
   width: 700rpx;
   height: auto;
