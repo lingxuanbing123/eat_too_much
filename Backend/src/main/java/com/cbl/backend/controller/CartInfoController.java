@@ -40,7 +40,7 @@ public class CartInfoController {
         if(user!= null){
             cartInfo.setUserid(user.getUserid());
         }
-        Business business = (Business) request.getSession().getAttribute("businessId");
+        Business business = (Business) request.getSession().getAttribute("business");
         if(business != null){
             cartInfo.setBusinessId(business.getBusinessId());
         }

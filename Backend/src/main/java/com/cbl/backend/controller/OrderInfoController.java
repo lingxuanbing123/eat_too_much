@@ -1,5 +1,6 @@
 package com.cbl.backend.controller;
 
+import com.cbl.backend.entity.Business;
 import com.cbl.backend.entity.OrderInfo;
 import com.cbl.backend.entity.User;
 import com.cbl.backend.mapper.OrderInfoMapper;
@@ -36,15 +37,22 @@ public class OrderInfoController {
     }
 
     @PostMapping("/orderInfo/add")
-    public ResponseEntity<Void> addOrderInfo(@RequestBody OrderInfo orderInfo){
+    public ResponseEntity<Void> addOrderInfo(@RequestBody OrderInfo orderInfo,HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        if(user!= null){
+            orderInfo.setUserid(user.getUserid());
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
         try {
             orderInfoMapper.add(orderInfo);
-            return ResponseEntity.ok().build();
         }
         catch (Exception e){
-            e.printStackTrace();
-            return ResponseEntity.badRequest().build();
+            System.err.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/orderInfo/{id}")

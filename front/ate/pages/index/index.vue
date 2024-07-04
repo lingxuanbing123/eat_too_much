@@ -34,32 +34,32 @@
 			</view>
 			
 			<view class="indexList">
-			        <takeOutCard 
-			          v-for="card in takeOutCards" 
-			          :key="card.id"
-			          :card-image="card.cardImage"
-			          :card-name="card.cardName"
-			          :rating="card.rating"
-			          :monthly-sales="card.monthlySales"
-			          :delivery-time="card.deliveryTime"
-			          :distance="card.distance"
-			          :min-order="card.minOrder"
-			          :delivery-fee="card.deliveryFee"
-			          :re-buyers="card.reBuyers"
-			          :re-buy-image="card.reBuyImage"
-			          :hide-img="card.hideImg"
-			          :hide1-img="card.hide1Img"
-			          :no-threshold="card.noThreshold"
-			          :hdiscount1="card.hdiscount1"
-			          :hdiscount2="card.hdiscount2"
-			          :service1="card.service1"
-			          :service2="card.service2"
-			          :service3="card.service3"
-			          :udiscount1="card.udiscount1"
-			          :udiscount2="card.udiscount2"
-			          :udiscount3="card.udiscount3"
-			          :udiscount4="card.udiscount4"
-			        />
+			       <takeOutCard
+			               v-for="card in takeOutCards"
+			               :key="card.id"
+			               :card-name="card.cardName"
+			               :card-image="card.cardImage"
+			               :rating="card.rating"
+			               :monthly-sales="card.monthlySales"
+			               :delivery-time="card.deliveryTime"
+			               :distance="card.distance"
+			               :min-order="card.minOrder"
+			               :delivery-fee="card.deliveryFee"
+			               :re-buyers="card.reBuyers"
+			               :re-buy-image="card.reBuyImage"
+			               :hide-img="card.hideImg"
+			               :hide1-img="card.hide1Img"
+			               :no-threshold="card.noThreshold"
+			               :hdiscount1="card.hdiscount1"
+			               :hdiscount2="card.hdiscount2"
+			               :service1="card.service1"
+			               :service2="card.service2"
+			               :service3="card.service3"
+			               :udiscount1="card.udiscount1"
+			               :udiscount2="card.udiscount2"
+			               :udiscount3="card.udiscount3"
+			               :udiscount4="card.udiscount4"
+			             />
 			</view>
 		</view>
 	</view>
