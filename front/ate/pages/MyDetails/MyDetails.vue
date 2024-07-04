@@ -21,6 +21,9 @@
 
 <script>
 export default {
+created() {
+	    this.fetchData();
+	  },
   data() {
     return {
       bMList: [
@@ -32,6 +35,15 @@ export default {
     }
   },
   methods: {
+	  fetchData(){
+	  		  fetch('http://localhost:8089/info').then(res=>res.json())
+	  		      .then(res=>{
+	  		          console.log(res);
+	  		      })
+	  		      .catch(e=>{console.error(e)
+	  		      
+	  		      })
+	  },
     detailsTo(item) {
       uni.navigateTo({
         url: `/pages/myDetailsTo/myDetailsTo?id=${item.id}&name=${item.name}`

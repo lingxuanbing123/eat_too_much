@@ -21,18 +21,19 @@
 
 <script>
 export default {
+	created() {
+		    this.fetchData();
+		  },
   data() {
     return {
       id: null,
       name: '',
-      inputValue: ''
+      inputValue: '',
     }
   },
   onLoad(options) {
     this.id = parseInt(options.id);
     this.name = options.name;
-    const storedValues = uni.getStorageSync('storedValues') || {};
-    this.inputValue = storedValues[this.id] || '';
   },
   methods: {
     backMyDetails() {
@@ -40,6 +41,27 @@ export default {
         url: '/pages/MyDetails/MyDetails'
       });
     },
+	fetchData(){
+			  fetch('http://localhost:8089/info')
+			      .then(res => res.json())
+			      .then(data => {
+			        if (this.id === 1) {
+			          console.log(data.userid); // 假设您想打印对象的 userid 属性
+			          // 其他处理逻辑
+					  //const storedValues1 = uni.getStorageSync('storedValues') || {};
+					  this.inputValue = data.userid; 
+					            // 赋值操作
+			        }
+					if (this.id === 2){
+						console.log(data.password); // 假设您想打印对象的 userid 属性
+						this.inputValue = data.password;
+					}
+			      })
+			      .catch(e => {
+			        console.error('Fetch error:', e);
+			      });
+
+	},
     toChangeDetails() {
       uni.navigateTo({
         url: `/pages/changeDetails/changeDetails?id=${this.id}&name=${this.name}`

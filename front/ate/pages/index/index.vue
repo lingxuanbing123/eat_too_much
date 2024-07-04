@@ -72,6 +72,9 @@ export default {
   components: {
     takeOutCard
   },
+  created() {
+      this.fetchData();
+    },
   data(){
 	  return {
 		squareItems:[
@@ -84,6 +87,11 @@ export default {
 		{id:7,imgSrc:'../../static/errand.png',text:'跑腿'},
 		{id:8,imgSrc:'../../static/fruit2.png',text:'0元领水果'},
 		],
+		// fetch('/business/info').then(res=>res.json())
+		//         .then(res=>{
+		//             console.log(res);
+		            
+		//         })
 		 takeOutCards: [
 		        {
 		          id: 1,
@@ -235,12 +243,21 @@ export default {
 				  udiscount2: '活动优惠2',
 				  udiscount3: '活动优惠3',
 				  udiscount4: '活动优惠4'
-				},
+				}
 		    ]
 	  }
+  },
+  methods:{
+	  fetchData(){
+		  fetch('http://localhost:8089/info').then(res=>res.json())
+		      .then(res=>{
+		          console.log(res);
+		      })
+		      .catch(e=>{console.error(e)
+		      
+		      })
+	  }
   }
-  
-  
 }
 </script>
 

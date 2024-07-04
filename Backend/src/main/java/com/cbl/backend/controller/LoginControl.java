@@ -33,7 +33,8 @@ public class LoginControl {
     @GetMapping("/info")
     public User getUserInfo(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        return (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
+        return user;
     }
 }
 
