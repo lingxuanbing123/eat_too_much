@@ -63,7 +63,6 @@ const addToCart = () => {
 </script>
 
 
-
 <style>
 .commodityCard {
 	width: 550rpx;
