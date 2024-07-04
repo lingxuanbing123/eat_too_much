@@ -107,7 +107,7 @@ CREATE TABLE `order_info`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `orderDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单创建时间',
-  `isPay` tinyint(1) NOT NULL DEFAULT 0,
+  `isPay` tinyint(1) NOT NULL DEFAULT 1,
   `goodNum` int(11) NOT NULL DEFAULT 0,
   `orderPrices` double NOT NULL DEFAULT 0,
   `goodId` int(11) NOT NULL DEFAULT 0,

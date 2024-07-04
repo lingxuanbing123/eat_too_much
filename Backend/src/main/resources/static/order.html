@@ -9,16 +9,12 @@
 </head>
 <body>
 这里是订单管理界面
-<div>
-    <button id="Add" onclick="addOrderInfo()">订单增加信息</button>
-</div>
-
 <div id = "orderInfo">
 
 </div>
 <script>
     function addOrderInfo() {
-        location.href= '/editOrderInfo.html'
+        location.href= '/addOrderInfo.html'
     }
     function deleteOrderInfo(id) {
         fetch('/orderInfo/'+id, {
@@ -46,7 +42,7 @@
             res.forEach(item=>{
                 console.log(item);
                 orderInfoDiv.innerHTML += `
-            <div style="padding-bottom: 5px;color: #666;border-bottom: 1px solid #ccc"><span style="margin-left: 30px">${item.pay}</span> <span style="margin-left: 30px">${item.goodNum}</span> <span style="margin-left: 30px">${item.orderPrices}</span><span style="margin-left: 30px">${item.goodName}</span>
+            <div style="padding-bottom: 5px;color: #666;border-bottom: 1px solid #ccc"><span style="margin-left: 30px">${item.goodNum}</span> <span style="margin-left: 30px">${item.orderPrices}</span><span style="margin-left: 30px">${item.goodName}</span>
                         <span style="margin-left: 30px"><button id="order0" onclick="deleteOrderInfo(${item.id})">删除</button></span>
             </div>
             `

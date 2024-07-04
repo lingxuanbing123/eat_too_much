@@ -12,7 +12,7 @@ public interface OrderInfoMapper {
     @Select("SELECT * FROM order_info WHERE userid = #{userid} ORDER BY id desc;")
     List<OrderInfo> getOrderInfoByUserId(@Param("userid") String userid);
 
-    @Insert("INSERT INTO `order_info`(userid,goodId,goodNum,goodPrice,isPay,goodName) VALUES(#{userid},#{goodId},#{goodNum},#{goodPrice},#{isPay},#{goodName})")
+    @Insert("INSERT INTO `order_info`(userid,goodId,goodNum,orderPrices,goodName) VALUES(#{userid},#{goodId},#{goodNum},#{orderPrices},#{goodName})")
     void add(OrderInfo orderInfo);
 
     @Delete("DELETE FROM order_info WHERE id = #{id}")
