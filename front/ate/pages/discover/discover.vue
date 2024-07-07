@@ -48,6 +48,10 @@
 		components: {
 		  takeOutCard
 		},
+		created() {
+		    this.fetchData();
+		  },
+		
 		data() {
 			return {
 				takeOutCards: [
@@ -217,7 +221,17 @@
 			}
 		},
 		methods: {
-			
+			fetchData(){
+					  fetch('http://localhost:8089/info').then(res=>res.json())
+					      .then(res=>{
+					          console.log(res);
+					      })
+					      .catch(e=>{console.error(e)
+					      uni.navigateTo({
+					        url: `/pages/logIn/logIn`
+					      });
+					      })
+			}
 		}
 	}
 </script>

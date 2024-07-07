@@ -8,10 +8,13 @@
     <title>地址编辑</title>
 </head>
 <body>
-我是地址编辑界面
-<div id ="addr">
-    <input type="text" id="address1" placeholder="请输入详细地址">
-    <button id="save" onclick="save()">保存</button>
+<div style="display: flex;padding: 10px 10px; justify-content:center;align-items:center;color: white;background-color:cadetblue;height: 150rpx">
+
+    |   地址添加界面   |
+</div>
+<div id ="addr" style="margin-top: 30px">
+    <input style=" padding:10px 10px" type="text" id="address1" placeholder="请输入详细地址">
+    <button style="background-color:cadetblue;color: white;border:none;padding:5px 10px " id="save" onclick="save()">保存</button>
 </div>
 
 <script>
@@ -26,7 +29,10 @@
     function save() {
         const addressIn = document.getElementById("address1");
         const address = addressIn.value;
-
+        if (!address){
+            alert("请填写地址")
+            return;
+        }
         fetch('/address/save',{
             headers: {
                 "Content-Type": "application/json"
@@ -36,10 +42,11 @@
         }).then(res=>{
             console.log(res)
             if(res.status/200 < 2){
-                alert("注册成功");
+                alert("添加成功");
                 addressIn.value = '';
+                location.href = '/myAddress.html' // 跳转到编辑界面
             }else {
-                alert("注册失败");
+                alert("添加失败");
             }
         })
     }

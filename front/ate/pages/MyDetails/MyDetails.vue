@@ -47,9 +47,18 @@ created() {
 	  		      })
 	  },
     detailsTo(item) {
-      uni.navigateTo({
-        url: `/pages/myDetailsTo/myDetailsTo?id=${item.id}&name=${item.name}`
-      });
+		if (item.id===4){
+			let url = 'http://localhost:8089/myAddress.html'
+			      uni.navigateTo({
+			        url: '/pages/webview/webview?url=' + url
+			      })
+		}
+		else {
+			uni.navigateTo({
+			  url: `/pages/myDetailsTo/myDetailsTo?id=${item.id}&name=${item.name}`
+			});
+		}
+      
     }
   }
 }

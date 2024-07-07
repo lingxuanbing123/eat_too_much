@@ -50,6 +50,9 @@ import commodityCardVue from '@/components/commodityCard.vue';
 import ShoppingCart from '@/components/ShoppingCart.vue';
 
 export default {
+	created() {
+	    this.fetchData();
+	  },
   data() {
     return {
       tabLists: [
@@ -128,6 +131,17 @@ export default {
         url: '/pages/discover/discover'
       });
     },
+	fetchData(){
+			  fetch('http://localhost:8089/info').then(res=>res.json())
+			      .then(res=>{
+			          console.log(res);
+			      })
+			      .catch(e=>{console.error(e)
+			      uni.navigateTo({
+			        url: `/pages/logIn/logIn`
+			      });
+			      })
+	},
     handleTabChose(index) {
       console.log('Selected Tab:', index);
       // 可以在这里处理选中tab后的逻辑
