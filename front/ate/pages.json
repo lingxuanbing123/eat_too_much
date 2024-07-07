@@ -8,7 +8,7 @@
 				"navigationBarTitleText" : ""
 			}
 		},
-    {
+		{
 			"path" : "pages/adressShow/adressShow",
 			"style" : 
 			{
@@ -42,7 +42,6 @@
 				"navigationBarTitleText" : ""
 			}
 		},
-		
 		
 		{
 			"path" : "pages/testVue/testTablist/testTablist",
@@ -122,9 +121,6 @@
 				"navigationBarTitleText" : ""
 			}
 		}
-		
-		
-		
 		
 		
 	],

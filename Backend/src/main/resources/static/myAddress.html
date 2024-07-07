@@ -5,20 +5,38 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="myAddress.css">
     <title>地址管理</title>
 </head>
 <body>
-这里是地址管理界面
-<div>
-    <button id="Add" onclick="addAdd()">增加地址</button>
+<div style="display: flex;font-size:20px;padding: 10px 10px; justify-content:center;align-items:center;color: white;background-color:cadetblue;height: 150rpx">
+
+    |    地址管理界面    |
 </div>
 
+<div style ="margin-top: 10px">
+    <button style="background-color:cadetblue;color:white;border:none;border-radius:5px;cursor:pointer;" id="back" onclick="backMine()">
+        <
+    </button>
+</div>
 <div id = "address">
 
 </div>
+<div style="height: 1000rpx">
+
+</div>
+<div style ="margin-top: 10px">
+    <button style="background-color:cadetblue;font-size:14px;padding:2px 3px;color:white;border:none;border-radius:5px;cursor:pointer;" id="Add" onclick="addAdd()">
+        增加地址
+    </button>
+</div>
+
 <script>
     function addAdd() {
         location.href= '/editAdd.html'
+    }
+    function backMine() {
+        location.href= 'http://localhost:5173/#/pages/MyDetails/MyDetails'
     }
     function deleteAdd(id) {
         fetch('/address/'+id, {
@@ -45,8 +63,11 @@
             const addressDiv = document.getElementById("address")
             res.forEach(item=>{
                 addressDiv.innerHTML += `
-            <div style="padding-bottom: 5px;color: #666;border-bottom: 1px solid #ccc"><span>${item.address}</span>
-            <span style="margin-left: 30px"><button id="business0" onclick="deleteAdd(${item.id})">删除</button></span>
+            <div style="padding-bottom: 5px;color: #666;border-bottom: 1px solid #ccc; margin-top:10px;display :flex">
+            <div style="flex: 1">
+            <span style="margin-left: 30px">${item.address}</span>
+            </div>
+            <div style="flex :1;margin-left: 100px"><button style="background-color:cadetblue;color:white;border:none;border-radius:5px;cursor:pointer;" id="business0" onclick="deleteAdd(${item.id})">删除</button></div>
             </div>
             `
             })

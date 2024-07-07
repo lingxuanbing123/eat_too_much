@@ -9,7 +9,7 @@
 				<input class="account" type="text" placeholder="请输入账号" v-model="username" />
 			</view>
 			<view class="passwordCard">
-				<input class="password" type="text" placeholder="请输入密码" v-model="pwd"/>
+				<input class="password" type="password" placeholder="请输入密码" v-model="pwd"/>
 			</view>
 			<view class="register" @click="regiTo">
 				<view class="registerLeft">
