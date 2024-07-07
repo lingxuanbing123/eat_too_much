@@ -1,0 +1,9 @@
+INSERT INTO `address` (`id`, `userid`, `address`) VALUES (3, '19573022922', '651161653');
+INSERT INTO `address` (`id`, `userid`, `address`) VALUES (5, '19573022922', '151');
+INSERT INTO `address` (`id`, `userid`, `address`) VALUES (6, '19573022922', '15');
+INSERT INTO `address` (`id`, `userid`, `address`) VALUES (8, '19573022922', '26');
+INSERT INTO `address` (`id`, `userid`, `address`) VALUES (9, '19573022922', '411652');
+INSERT INTO `address` (`id`, `userid`, `address`) VALUES (10, '19573022922', '156103651');
+INSERT INTO `address` (`id`, `userid`, `address`) VALUES (15, '1234567910', '165161');
+INSERT INTO `address` (`id`, `userid`, `address`) VALUES (17, '1234567910', '3ewtwst4w4t');
+INSERT INTO `address` (`id`, `userid`, `address`) VALUES (25, '19573022922', 'adwawda');
